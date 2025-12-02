@@ -1,135 +1,205 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="layout-menu-fixed layout-compact" data-assets-path="../assets/"
+    data-template="vertical-menu-template-free">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>
-        Laundry
-    </title>
-    <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-    <!-- Nucleo Icons -->
-    <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <!-- CSS Files -->
-    <link id="pagestyle" href="{{ asset('css/argon-dashboard.css?v=2.1.0') }} " rel="stylesheet" />
+
+    <title>Laundry</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <!-- build:css assets/vendor/css/theme.css  -->
+
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- endbuild -->
+
+    <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="../assets/js/config.js"></script>
 </head>
 
-<body class="g-sidenav-show   bg-gray-100" onload="updateHarga()">
-    <div class="min-height-300 bg-dark position-absolute w-100"></div>
-    <aside
-        class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 "
-        id="sidenav-main">
-        <div class="sidenav-header">
-            <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
-                aria-hidden="true" id="iconSidenav"></i>
-            <a class="navbar-brand m-0">
-                <span class="ms-1 font-weight-bold">Laundry</span>
-            </a>
-        </div>
-        <hr class="horizontal dark mt-0">
-        <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link " href="{{ route('laundry') }}">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-basket text-dark text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Dashboard</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('pelanggan') }}">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Members</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="{{ route('layanan') }}">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-bag-17 text-dark text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Servis</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="{{ route('logout') }}">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-bold-right text-dark text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Logout</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </aside>
+<body>
+    <div class="layout-wrapper layout-content-navbar" onload="updateHarga()">
+        <div class="layout-container">
 
-        
-        <!-- End Navbar -->
-        <main class="main-content position-relative border-radius-lg ">
-            @yield('content')
-        </main>
-        <footer class="footer pt-3  ">
-            <div class="container-fluid">
-                <div class="row align-items-center justify-content-lg-between">
-                    <div class="col-lg-6 mb-lg-0 mb-4">
-                        <div class="copyright text-center text-sm text-muted text-lg-start">
+            {{-- Sidebar --}}
+            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+                <div class="app-brand demo">
+                    <a href="/" class="app-brand-link">
+                        <span class="app-brand-text demo menu-text fw-bold">Laundry</span>
+                    </a>
+
+                    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+                        <i class="bx bx-chevron-left d-block d-xl-none"></i>
+                    </a>
+                </div>
+
+                <div class="menu-inner-shadow"></div>
+
+                <ul class="menu-inner">
+                    <li class="menu-item">
+                        <a href="{{ route('laundry') }}" class="menu-link">
+                            <i class="menu-icon bx bx-home-smile"></i>
+                            <div>Dashboard</div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{ route('layanan') }}" class="menu-link">
+                            <i class="menu-icon bx bx-basket"></i>
+                            <div>Layanan</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ route('pelanggan') }}" class="menu-link">
+                            <i class="menu-icon bx bx-user"></i>
+                            <div>Member</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ route('laundry') }}" class="menu-link">
+                            <i class="menu-icon bx bx-credit-card"></i>
+                            <div>Transaksi</div>
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+
+            {{-- Page Content --}}
+            <div class="layout-page">
+
+                {{-- Navbar --}}
+                <nav
+                    class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme">
+                    <div class="layout-menu-toggle navbar-nav d-xl-none">
+                        <a class="nav-item nav-link px-0" href="javascript:void(0)">
+                            <i class="bx bx-menu icon-md"></i>
+                        </a>
+                    </div>
+
+                    <div class="navbar-nav-right d-flex align-items-center w-100">
+
+                        {{-- Search Bar --}}
+                        <div class="navbar-nav align-items-center me-auto">
+                            <div class="nav-item d-flex align-items-center">
+                                <i class="bx bx-search icon-md me-2"></i>
+                                <input type="text" class="form-control border-0 shadow-none" placeholder="Search...">
+                            </div>
+                        </div>
+
+                        {{-- Github & User Menu --}}
+                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                            <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);"
+                                data-bs-toggle="dropdown">
+                                <div class="avatar avatar-online">
+                                    <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar avatar-online">
+                                                    <img src="../assets/img/avatars/1.png" alt
+                                                        class="w-px-40 h-auto rounded-circle" />
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-0">John Doe</h6>
+                                                <small class="text-body-secondary">Admin</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider my-1"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="icon-base bx bx-user icon-md me-3"></i><span>My Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider my-1"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:void(0);">
+                                        <i class="icon-base bx bx-power-off icon-md me-3"></i><span>Log Out</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </div>
+                </nav>
+
+                {{-- Content Wrapper --}}
+                <div class="content-wrapper">
+                    @yield('content')
+                </div>
+
+                {{-- Footer --}}
+                <footer class="content-footer footer bg-footer-theme">
+                    <div class="container-xxl d-flex justify-content-between py-2">
+                        <div>
                             ©
                             <script>
                                 document.write(new Date().getFullYear())
                             </script>,
-                            made with <i class="fa fa-heart"></i> by
-                            <a href="" class="font-weight-bold" target="_blank">Laundry</a>
+                            made with ❤️ by <a href="https://themeselection.com"
+                                class="footer-link">ThemeSelection</a>
+                        </div>
+
+                        <div class="d-none d-lg-inline-block">
+                            <a href="#" class="footer-link me-4">Admin Templates</a>
+                            <a href="#" class="footer-link me-4">Documentation</a>
+                            <a href="#" class="footer-link me-4">Support</a>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                            <li class="nav-item">
-                                <a href="" class="nav-link text-muted" target="_blank">Laundry</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link text-muted" target="_blank">About Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link text-muted" target="_blank">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link pe-0 text-muted" target="_blank">License</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                </footer>
+
             </div>
-        </footer>
         </div>
-    </main>
-    <!--   Core JS Files   -->
-    <script src="{{ asset('js/core/popper.min.js') }}"></script>
-    <script src="{{ asset('js/core/bootstrap.min.js') }}"></script>
-    <script src=".{{ asset('js/plugins/perfect-scrollbar.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/smooth-scrollbar.min.js') }}"></script>
-    <script>
-        var win = navigator.platform.indexOf('Win') > -1;
-        if (win && document.querySelector('#sidenav-scrollbar')) {
-            var options = {
-                damping: '0.5'
-            }
-            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-        }
-    </script>
-    <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="{{ asset('js/argon-dashboard.min.js?v=2.1.0') }}"></script>
+
+        <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+
+    <!-- JS -->
+    <script src="/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="/assets/vendor/libs/popper/popper.js"></script>
+    <script src="/assets/vendor/js/bootstrap.js"></script>
+    <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/assets/vendor/js/menu.js"></script>
+    <script src="/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/dashboards-analytics.js"></script>
 </body>
 
 </html>
