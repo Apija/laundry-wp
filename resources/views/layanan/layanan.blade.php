@@ -9,6 +9,7 @@
                 <div class="card">
                     <h5 class="card-header">Layanan</h5>
                     <div class="table-responsive text-nowrap">
+                        <a href="{{ route('layanan.create') }}" class="btn" style="margin-left: 850px">Add Data</a>
                         <table class="table">
                             <thead>
                                 <tr>
