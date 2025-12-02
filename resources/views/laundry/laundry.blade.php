@@ -46,10 +46,10 @@
                                                     <i class="icon-base bx bx-dots-vertical-rounded"></i>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                    <a class="dropdown-item" href="{{ route('laundry.edit', $ldr->id_laundry) }}"><i
                                                             class="icon-base bx bx-edit-alt me-1"></i> Edit</a>
                                                     <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="icon-base bx bx-trash me-1"></i> Delete</a>
+                                                            class="icon-base bx bx-receipt"></i> Cetak</a>
                                                 </div>
                                             </div>
                                         </td>

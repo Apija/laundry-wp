@@ -13,7 +13,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama/th>
+                                    <th>Nama</th>
                                     <th>No Telp</th>
                                     <th>Alamat</th>
                                     <th>Action</th>
