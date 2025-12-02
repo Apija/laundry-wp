@@ -9,6 +9,7 @@
                 <div class="card">
                     <h5 class="card-header">Pelanggan</h5>
                     <div class="table-responsive text-nowrap">
+                        <a href="{{ route('pelanggan.create') }}" class="btn" style="margin-left: 850px">Add Data</a>
                         <table class="table">
                             <thead>
                                 <tr>
