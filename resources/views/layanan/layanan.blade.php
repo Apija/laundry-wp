@@ -36,10 +36,19 @@
                                                     <i class="icon-base bx bx-dots-vertical-rounded"></i>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="{{ route('layanan.edit', $l->id_layanan) }}""><i
+                                                    <a class="dropdown-item" href="{{ route('layanan.edit', $l->id_layanan) }}"><i
                                                             class="icon-base bx bx-edit-alt me-1"></i> Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="icon-base bx bx-trash me-1"></i> Delete</a>
+                                                     <form id="delete-form-{{ $l->id_layanan }}"
+                                                        action="{{ route('layanan.delete', $l->id_layanan) }}"
+                                                        method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                    <a class="dropdown-item" href=""
+                                                        onclick="event.preventDefault(); 
+                                                            if (confirm('Yakin ingin menghapus data ini?')) {
+                                                                document.getElementById('delete-form-{{ $l->id_layanan }}').submit();}">
+                                                        <i class="icon-base bx bx-trash me-1"></i> Delete</a>
                                                 </div>
                                             </div>
                                         </td>
