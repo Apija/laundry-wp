@@ -9,6 +9,8 @@
                 <div class="card">
                     <h5 class="card-header">Laundry</h5>
                     <div class="table-responsive text-nowrap">
+                        <a href="{{ route('laundry.create') }}" class="btn">Export Exel</a>
+                        <a href="{{ route('laundry.create') }}" class="btn">Add Data</a>
                         <table class="table">
                             <thead>
                                 <tr>
