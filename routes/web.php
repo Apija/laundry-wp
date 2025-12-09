@@ -17,6 +17,8 @@ Route :: get ('/laundry/create', [LaundryController::class,'create'])->name('lau
 Route :: post ('/laundry/store', [LaundryController::class,'store'])->name('laundry.store');
 Route :: get ('/laundry/edit/{id}', [LaundryController::class,'edit'])->name('laundry.edit');
 Route :: put ('/laundry/update/{id}', [LaundryController::class,'update'])->name('laundry.update');
+// Route untuk cetak struk
+Route::get('/laundry/cetak/{id}', [LaundryController::class, 'cetakStruk'])->name('laundry.cetak');
 
 //layanan crud
 Route :: get('/layanan', [LayananController::class, 'layanan'])->name('layanan');

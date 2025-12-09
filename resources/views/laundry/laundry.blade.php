@@ -4,7 +4,6 @@
         <div class="content-wrapper">
             <div class="container-xxl flex-grow-1 container-p-y">
                 <div class="card">
-                    
                     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                         <h5 style="margin: 0;">Laundry</h5>
                         
@@ -53,7 +52,7 @@
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item" href="{{ route('laundry.edit', $ldr->id_laundry) }}"><i
                                                             class="icon-base bx bx-edit-alt me-1"></i> Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                    <a class="dropdown-item" href="{{ route('laundry.cetak', $ldr->id_laundry) }}"><i
                                                             class="icon-base bx bx-receipt"></i> Cetak</a>
                                                 </div>
                                             </div>

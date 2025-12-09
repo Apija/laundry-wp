@@ -156,8 +156,18 @@ class LaundryController extends Controller
         ]);
         return redirect('laundry')->with('success', 'Data berhasil diperbarui');
     }
-    public function destroy(string $id)
+    public function delete(Laundry $id)
     {
-        //
+        $id->delete();
+        return redirect('laundry')->with('success', 'Data berhasil dihapus');
+    }
+
+    public function cetakStruk($id_laundry)
+    {
+        // Ambil data laundry berdasarkan ID, lengkap dengan relasi pelanggan dan layanan
+        $laundry = \App\Models\Laundry::with(['pelanggan', 'layanan'])->findOrFail($id_laundry);
+
+        // Tampilkan view khusus struk
+        return view('laundry.struk', compact('laundry'));
     }
 }
