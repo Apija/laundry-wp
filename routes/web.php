@@ -36,3 +36,5 @@ Route :: delete ('delete/{id}', [PelangganController::class,'delete'])->name('pe
 
 //admin crud
 Route :: get('/user', [AdminController::class, 'user'])->name('user');
+Route :: get ('/create', [AdminController::class,'create'])->name('admin.create');
+Route :: post ('/store', [AdminController::class,'store'])->name('admin.store');
