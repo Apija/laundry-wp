@@ -28,16 +28,16 @@ Route :: delete ('/layanan/delete/{id}', [LayananController::class,'delete'])->n
 
 //pelanggan crud
 Route :: get('/pelanggan', [PelangganController::class, 'pelanggan'])->name('pelanggan');
-Route :: get ('/create', [PelangganController::class,'create'])->name('pelanggan.create');
-Route :: post ('/store', [PelangganController::class,'store'])->name('pelanggan.store');
-Route :: get ('edit/{id}', [PelangganController::class,'edit'])->name('pelanggan.edit');
-Route :: put ('update/{id}', [PelangganController::class,'update'])->name('pelanggan.update');
-Route :: delete ('delete/{id}', [PelangganController::class,'delete'])->name('pelanggan.delete'); 
+Route :: get ('/pelanggan/create', [PelangganController::class,'create'])->name('pelanggan.create');
+Route :: post ('/pelanggan/store', [PelangganController::class,'store'])->name('pelanggan.store');
+Route :: get ('/pelanggan/edit/{id}', [PelangganController::class,'edit'])->name('pelanggan.edit');
+Route :: put ('/pelanggan/update/{id}', [PelangganController::class,'update'])->name('pelanggan.update');
+Route :: delete ('/pelanggan/delete/{id}', [PelangganController::class,'delete'])->name('pelanggan.delete'); 
 
 //admin crud
 Route :: get('/user', [AdminController::class, 'user'])->name('user');
-Route :: get ('/create', [AdminController::class,'create'])->name('admin.create');
-Route :: post ('/store', [AdminController::class,'store'])->name('admin.store');
-Route :: get ('edit/{id}', [AdminController::class,'edit'])->name('admin.edit');
-Route :: put ('update/{id}', [AdminController::class,'update'])->name('admin.update');
-Route :: delete ('delete/{id}', [AdminController::class,'delete'])->name('admin.delete'); 
+Route :: get ('/admin/create', [AdminController::class,'create'])->name('admin.create');
+Route :: post ('/admin/store', [AdminController::class,'store'])->name('admin.store');
+Route :: get ('/admin/edit/{id}', [AdminController::class,'edit'])->name('admin.edit');
+Route :: put ('/admin/update/{id}', [AdminController::class,'update'])->name('admin.update');
+Route :: delete ('/admin/delete/{id}', [AdminController::class,'delete'])->name('admin.delete'); 

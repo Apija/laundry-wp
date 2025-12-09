@@ -7,8 +7,10 @@
                 <!-- Basic Bootstrap Table -->
                 <div class="card">
                     <h5 class="card-header">Laundry</h5>
-                    <a href="{{ route('laundry.create') }}" class="btn" style="margin-left: 600px">Export Exel</a>
+                    <div style="display: flex; justify-content: flex-start; gap: 10px; margin-bottom: 20px;">
+                    <a href="{{ route('laundry.create') }}" class="btn" style="margin-left: 500px">Export Exel</a>
                     <a href="{{ route('laundry.create') }}" class="btn" style="margin-left: 850px">Add Data</a>
+                    </div>
                     <div class="table-responsive text-nowrap">
                         <table class="table">
                             <thead>
