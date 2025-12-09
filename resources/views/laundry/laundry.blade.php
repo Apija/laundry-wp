@@ -1,5 +1,4 @@
 @extends('layout.main')
-
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="content-wrapper">
@@ -8,9 +7,9 @@
                 <!-- Basic Bootstrap Table -->
                 <div class="card">
                     <h5 class="card-header">Laundry</h5>
+                    <a href="{{ route('laundry.create') }}" class="btn" style="margin-left: 600px">Export Exel</a>
+                    <a href="{{ route('laundry.create') }}" class="btn" style="margin-left: 850px">Add Data</a>
                     <div class="table-responsive text-nowrap">
-                        <a href="{{ route('laundry.create') }}" class="btn">Export Exel</a>
-                        <a href="{{ route('laundry.create') }}" class="btn">Add Data</a>
                         <table class="table">
                             <thead>
                                 <tr>
