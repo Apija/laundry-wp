@@ -2,14 +2,16 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="content-wrapper">
-            <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-                <!-- Basic Bootstrap Table -->
                 <div class="card">
-                    <h5 class="card-header">Laundry</h5>
-                    <div style="display: flex; justify-content: flex-start; gap: 10px; margin-bottom: 20px;">
-                    <a href="{{ route('laundry.create') }}" class="btn" style="margin-left: 500px">Export Exel</a>
-                    <a href="{{ route('laundry.create') }}" class="btn" style="margin-left: 850px">Add Data</a>
+                    
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <h5 style="margin: 0;">Laundry</h5>
+                        
+                        <div style="display: flex; gap: 10px;">
+                            <a href="{{ route('laundry.create') }}" class="btn" style="white-space: nowrap;">Export Excel</a>
+                            <a href="{{ route('laundry.create') }}" class="btn" style="white-space: nowrap;">Add Data</a>
+                        </div>
                     </div>
                     <div class="table-responsive text-nowrap">
                         <table class="table">
@@ -56,8 +58,8 @@
                                                 </div>
                                             </div>
                                         </td>
+                                    </tr>
                                 @endforeach
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -65,4 +67,6 @@
 
                 {{-- Tambahkan bagian dashboard lainnya --}}
             </div>
-        @endsection
+        </div>
+    </div>
+@endsection
