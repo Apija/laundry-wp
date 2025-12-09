@@ -36,16 +36,19 @@
                                                 </button>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item"
-                                                        href=""><i
+                                                        href="{{ route('admin.edit', $u->id) }}"><i
                                                             class="icon-base bx bx-edit-alt me-1"></i> Edit</a>
-                                                    <form id=""
-                                                        action=""
+                                                    <form id="delete-form-{{ $u->id }}"
+                                                        action="{{ route('admin.delete', $u->id) }}"
                                                         method="POST" style="display: none;">
                                                         @csrf
                                                         @method('DELETE')
                                                     </form>
                                                     <a class="dropdown-item" href="javascript:void(0);"
-                                                    onclick="event.preventDefault();"></i> Delete</a>
+                                                    onclick="event.preventDefault(); 
+                                                        if (confirm('Yakin ingin menghapus data ini?')) {
+                                                            document.getElementById('delete-form-{{ $u->id}}').submit();}"><i
+                                                            class="icon-base bx bx-trash me-1"></i> Delete</a>
                                                 </div>
                                             </div>
                                         </td>

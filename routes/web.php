@@ -38,3 +38,6 @@ Route :: delete ('delete/{id}', [PelangganController::class,'delete'])->name('pe
 Route :: get('/user', [AdminController::class, 'user'])->name('user');
 Route :: get ('/create', [AdminController::class,'create'])->name('admin.create');
 Route :: post ('/store', [AdminController::class,'store'])->name('admin.store');
+Route :: get ('edit/{id}', [AdminController::class,'edit'])->name('admin.edit');
+Route :: put ('update/{id}', [AdminController::class,'update'])->name('admin.update');
+Route :: delete ('delete/{id}', [AdminController::class,'delete'])->name('admin.delete'); 

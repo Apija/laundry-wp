@@ -37,6 +37,7 @@ class AdminController extends Controller
                 'email.max' => 'jenis maksimal 45 karakter',
                 'password.required' => 'jenis wajib diisi',
                 'password.max' => 'jenis maksimal 45 karakter',
+                'password.confirmed' => 'Konfirmasi password tidak cocok'
             ]
         );
         //tambah data 
@@ -45,6 +46,53 @@ class AdminController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        return redirect()->route('admin.user');
+        return redirect()->route('admin.admin');
+    }
+    //Tampil Edit
+    public function edit(User $id)
+    {
+        return view('user.edit', compact('id'));
+    }
+
+    
+    //Update the specified resource in storage.
+    
+    public function update(Request $request, string $id)
+    {
+        $request->validate(
+            [
+                'name' => 'required|max:45',
+                'email' => 'required|max:45',
+                'password' => 'required|max:45',
+            ],
+            [
+                'name.required' => 'Nama wajib diisi',
+                'name.max' => 'Nama maksimal 45 karakter',
+                'email.required' => 'jenis wajib diisi',
+                'email.max' => 'jenis maksimal 45 karakter',
+                'password.required' => 'jenis wajib diisi',
+                'password.max' => 'jenis maksimal 45 karakter',
+                'password.confirmed' => 'Konfirmasi password tidak cocok'
+            ]
+    );
+
+        //ambil produk lama
+        $user = User::find($id);
+
+        //update data produk
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->route('admin.admin');
+    }
+    //delete
+    public function delete(user $id)
+    {
+        $id->delete();
+
+        return redirect()->route('admin.admin')->with('success', 'Data berhasil dihapus');
     }
 }
