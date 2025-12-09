@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Laundry;
 use App\Models\Layanan;
 use App\Models\Pelanggan;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LaundryController extends Controller
 {
@@ -46,132 +47,6 @@ class LaundryController extends Controller
         return view('laundry.create', compact('pelanggan', 'layanan'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $request->validate(
-            [
-                'id_pelanggan' => 'required|exists:pelanggans,id_pelanggan',
-                'id_layanan' => 'required|exists:layanans,id_layanan',
-                'berat' => 'required|numeric',
-                'status' => 'required|max:45',
-                'tgl_masuk' => 'required|date',
-                'tgl_selesai' => 'required|date',
-            ]
-        );
-
-        // Ambil data layanan
-        $layanan = Layanan::findOrFail($request->id_layanan);
-
-        // ==========================
-        // GENERATE RESI OTOMATIS
-        // ==========================
-
-        // Format tanggal ymd
-        $tanggal = now()->format('ymd');
-
-        // Ambil kode layanan
-        $kode = $layanan->kode;
-
-        // Cari resi terakhir per hari + layanan
-        $latest = Laundry::where('id_layanan', $request->id_layanan)
-            ->whereDate('tgl_masuk', now())
-            ->orderBy('id_laundry', 'desc')
-            ->first();
-
-        // Nomor urut 3 digit
-        $urut = $latest ? intval(substr($latest->resi, -3)) + 1 : 1;
-
-        // Buat resi final → EXP250125001
-        $resi = $kode . $tanggal . str_pad($urut, 3, '0', STR_PAD_LEFT);
-
-        // ==========================
-        // HITUNG TOTAL HARGA
-        // ==========================
-        $total_harga = $request->berat * $layanan->harga_perkilo;
-
-        // Simpan ke database
-        Laundry::create([
-            'id_pelanggan' => $request->id_pelanggan,
-            'id_layanan' => $request->id_layanan,
-            'resi' => $resi,
-            'berat' => $request->berat,
-            'total_harga' => $total_harga,
-            'status' => $request->status,
-            'tgl_masuk' => $request->tgl_masuk,
-            'tgl_selesai' => $request->tgl_selesai,
-        ]);
-
-        return redirect('laundry')->with('success', 'Laundry berhasil ditambahkan!');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Laundry $id)
-    {
-        $pelanggan = Pelanggan::all();
-        $layanan = Layanan::all();
-        return view('laundry.edit', compact('id', 'pelanggan', 'layanan'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $request->validate(
-            [
-                'id_pelanggan' => 'required|exists:pelanggans,id_pelanggan',
-                'id_layanan' => 'required|exists:layanans,id_layanan',
-                'berat' => 'required|numeric',
-                'status' => 'required|max:45',
-                'tgl_masuk' => 'required|date',
-                'tgl_selesai' => 'required|date',
-            ],
-            [
-                'id_pelanggan.required' => 'Nama pelanggan wajib diisi',
-                'id_pelanggan.max' => 'Nama maksimal 45 karakter',
-
-                'id_layanan.required' => 'Nama layanan wajib diisi',
-                'id_layanan.max' => 'Nama layanan maksimal 45 karakter',
-
-                'berat.required' => 'Berat cucian wajib diisi',
-                'berat.numeric' => 'Berat harus berupa angka',
-
-                'status.required' => 'Status wajib diisi',
-                'status.max' => 'Status maksimal 45 karakter',
-
-                'tgl_masuk.required' => 'Tanggal masuk wajib diisi',
-                'tgl_masuk.date' => 'Tanggal masuk harus format tanggal yang valid',
-
-                'tgl_selesai.required' => 'Tanggal selesai wajib diisi',
-                'tgl_selesai.date' => 'Tanggal selesai harus format tanggal yang valid',
-            ]
-        );
-        // Hitung total harga di backend
-        $layanan = Layanan::findOrFail($request->id_layanan);
-        $total_harga = $request->berat * $layanan->harga_perkilo;
-
-        //ambil produk lama
-        $laundry = Laundry::findOrFail($id);
-
-        //tambah data produk
-        $laundry->update([
-            'id_pelanggan' => $request->id_pelanggan,
-            'id_layanan' => $request->id_layanan,
-            'resi' => $request->resi,
-            'berat' => $request->berat,
-            'total_harga' => $total_harga,
-            'status' => $request->status,
-            'tgl_masuk' => $request->tgl_masuk,
-            'tgl_selesai' => $request->tgl_selesai,
-
-        ]);
-        return redirect('laundry')->with('success', 'Data berhasil diperbarui');
-    }
     public function delete(Laundry $id)
     {
         $id->delete();
@@ -195,5 +70,51 @@ class LaundryController extends Controller
         $laundry->save();
 
         return redirect()->back()->with('success', 'Status berhasil diubah!');
+    }
+
+    public function exportLaporan(Request $request)
+    {
+        // 1. Logika Filter (Sama seperti sebelumnya)
+        $query = \App\Models\Laundry::with(['pelanggan', 'layanan']);
+        $judul = "Laporan-Laundry";
+        $periode = "";
+
+        if ($request->jenis == 'bulanan' && $request->has('filter_bulan')) {
+            $parts = explode('-', $request->filter_bulan);
+            $query->whereYear('tgl_masuk', $parts[0])
+                ->whereMonth('tgl_masuk', $parts[1]);
+            $judul .= "-Bulanan-" . $request->filter_bulan;
+            $periode = "Bulan: " . date('F Y', strtotime($request->filter_bulan));
+        } elseif ($request->jenis == 'mingguan' && $request->has('filter_minggu')) {
+            $dto = new \DateTime();
+            $dto->setISODate((int)substr($request->filter_minggu, 0, 4), (int)substr($request->filter_minggu, 6));
+            $start = $dto->format('Y-m-d');
+            $dto->modify('+6 days');
+            $end = $dto->format('Y-m-d');
+
+            $query->whereBetween('tgl_masuk', [$start, $end]);
+            $judul .= "-Mingguan-" . $request->filter_minggu;
+            $periode = "Minggu: $start s/d $end";
+        }
+
+        $data = $query->get();
+        $totalPendapatan = $data->sum('total_harga');
+
+        // 2. Cek Format Download (PDF atau Excel)
+        if ($request->format == 'pdf') {
+            // Load View khusus PDF
+            $pdf = Pdf::loadView('laundry.export_excel', compact('data', 'periode', 'totalPendapatan'));
+            // Atur kertas jadi Landscape agar tabel muat
+            $pdf->setPaper('a4', 'landscape');
+            return $pdf->download($judul . '.pdf');
+        } else {
+            // Format Excel (Menggunakan View HTML agar Rapi ada garisnya)
+            header("Content-Type: application/vnd.ms-excel");
+            header("Content-Disposition: attachment; filename=$judul.xls");
+            header("Pragma: no-cache");
+            header("Expires: 0");
+
+            return view('laundry.export_excel', compact('data', 'periode', 'totalPendapatan'));
+        }
     }
 }

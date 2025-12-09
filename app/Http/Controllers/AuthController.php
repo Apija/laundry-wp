@@ -12,6 +12,10 @@ class AuthController extends Controller
     {
         return view('login');
     }
+    public function dashboard()
+    {
+        return view('dashboard');
+    }
     //verifikasi use and password
     public function autheticate(Request $request)
     {
@@ -31,7 +35,7 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($infologin)) {
-            return redirect()->route('laundry');
+            return redirect()->route('dashboard');
         } else {
             // return 'gagal'
             return redirect('/')->withErrors('username dan password tidak valid');

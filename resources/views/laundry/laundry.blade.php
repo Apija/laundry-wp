@@ -25,9 +25,96 @@
                                 @endif
                             </form>
 
-                            <a href="{{ route('laundry.create') }}" class="btn btn-success text-nowrap">
-                                Export Excel
-                            </a>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#modalExport">
+                                <i class="bx bx-download me-1"></i> Export Laporan
+                            </button>
+
+                            <div class="modal fade" id="modalExport" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Export Laporan</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <ul class="nav nav-pills nav-fill mb-3" role="tablist">
+                                                <li class="nav-item">
+                                                    <button type="button" class="nav-link active" data-bs-toggle="tab"
+                                                        data-bs-target="#tab-bulan">Bulanan</button>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <button type="button" class="nav-link" data-bs-toggle="tab"
+                                                        data-bs-target="#tab-minggu">Mingguan</button>
+                                                </li>
+                                            </ul>
+
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade show active" id="tab-bulan">
+                                                    <form action="{{ route('laundry.export') }}" method="GET">
+                                                        <input type="hidden" name="jenis" value="bulanan">
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Pilih Bulan</label>
+                                                            <input type="month" name="filter_bulan" class="form-control"
+                                                                required>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label d-block">Format File</label>
+                                                            <div class="btn-group w-100" role="group">
+                                                                <input type="radio" class="btn-check" name="format"
+                                                                    id="pdf1" value="pdf" checked>
+                                                                <label class="btn btn-outline-danger" for="pdf1"><i
+                                                                        class="bx bxs-file-pdf"></i> PDF</label>
+
+                                                                <input type="radio" class="btn-check" name="format"
+                                                                    id="xls1" value="excel">
+                                                                <label class="btn btn-outline-success" for="xls1"><i
+                                                                        class="bx bxs-spreadsheet"></i> Excel</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <button type="submit"
+                                                            class="btn btn-primary w-100">Download</button>
+                                                    </form>
+                                                </div>
+
+                                                <div class="tab-pane fade" id="tab-minggu">
+                                                    <form action="{{ route('laundry.export') }}" method="GET">
+                                                        <input type="hidden" name="jenis" value="mingguan">
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Pilih Minggu</label>
+                                                            <input type="week" name="filter_minggu" class="form-control"
+                                                                required>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label d-block">Format File</label>
+                                                            <div class="btn-group w-100" role="group">
+                                                                <input type="radio" class="btn-check" name="format"
+                                                                    id="pdf2" value="pdf" checked>
+                                                                <label class="btn btn-outline-danger" for="pdf2"><i
+                                                                        class="bx bxs-file-pdf"></i> PDF</label>
+
+                                                                <input type="radio" class="btn-check" name="format"
+                                                                    id="xls2" value="excel">
+                                                                <label class="btn btn-outline-success" for="xls2"><i
+                                                                        class="bx bxs-spreadsheet"></i> Excel</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <button type="submit"
+                                                            class="btn btn-primary w-100">Download</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <a href="{{ route('laundry.create') }}" class="btn btn-primary text-nowrap">
                                 Add Data
@@ -77,7 +164,8 @@
                                                         @method('PUT')
                                                         <input type="hidden" name="status" value="Sedang dalam proses">
                                                         <button type="submit" class="dropdown-item">
-                                                            <i class="bx bx-loader-circle me-1 text-warning"></i> Sedang dalam proses
+                                                            <i class="bx bx-loader-circle me-1 text-warning"></i> Sedang
+                                                            dalam proses
                                                         </button>
                                                     </form>
 

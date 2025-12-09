@@ -53,7 +53,7 @@
 
                 <ul class="menu-inner">
                     <li class="menu-item">
-                        <a href="" class="menu-link">
+                        <a href="{{ route('dashboard') }}" class="menu-link">
                             <i class="menu-icon bx bx-home-smile"></i>
                             <div>Dashboard</div>
                         </a>

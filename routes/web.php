@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 Route :: get ('/', [AuthController::class,'index'])->name('login');
 Route :: post ('/', [AuthController::class,'autheticate'])->name('login.proses');
 Route :: get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route :: get('/dashboard', [AuthController::class,'dashboard'])->name('dashboard');
+
 
 //laundry crud
 Route :: get('/laundry', [LaundryController::class,'laundry'])->name('laundry');
@@ -21,6 +23,7 @@ Route :: put ('/laundry/update/{id}', [LaundryController::class,'update'])->name
 Route::get('/laundry/cetak/{id}', [LaundryController::class, 'cetakStruk'])->name('laundry.cetak');
 // Route update status laundry
 Route::put('/laundry/update-status/{id}', [LaundryController::class, 'updateStatus'])->name('laundry.updateStatus');
+Route::get('/laundry/export', [LaundryController::class, 'exportLaporan'])->name('laundry.export');
 
 //layanan crud
 Route :: get('/layanan', [LayananController::class, 'layanan'])->name('layanan');
