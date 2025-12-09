@@ -3,6 +3,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LaundryController;
 use App\Http\Controllers\LayananController;
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 //login dan logout
@@ -33,3 +34,5 @@ Route :: get ('edit/{id}', [PelangganController::class,'edit'])->name('pelanggan
 Route :: put ('update/{id}', [PelangganController::class,'update'])->name('pelanggan.update');
 Route :: delete ('delete/{id}', [PelangganController::class,'delete'])->name('pelanggan.delete'); 
 
+//admin crud
+Route :: get('/user', [AdminController::class, 'user'])->name('user');

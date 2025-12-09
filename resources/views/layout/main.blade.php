@@ -77,6 +77,12 @@
                             <div>Transaksi</div>
                         </a>
                     </li>
+                    <li class="menu-item">
+                        <a href="{{ route('user') }}" class="menu-link">
+                            <i class="menu-icon bx bx-user"></i>
+                            <div>Admin</div>
+                        </a>
+                    </li>
                 </ul>
             </aside>
 
@@ -162,12 +168,12 @@
                             <script>
                                 document.write(new Date().getFullYear())
                             </script>,
-                            made with ❤️ by <a href="https://themeselection.com"
-                                class="footer-link">ThemeSelection</a>
+                            made with ❤️ by <a href=""
+                                class="footer-link">Laundry</a>
                         </div>
 
                         <div class="d-none d-lg-inline-block">
-                            <a href="#" class="footer-link me-4">Admin Templates</a>
+                            <a href="#" class="footer-link me-4">Laundry</a>
                             <a href="#" class="footer-link me-4">Documentation</a>
                             <a href="#" class="footer-link me-4">Support</a>
                         </div>
