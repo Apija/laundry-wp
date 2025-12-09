@@ -19,6 +19,8 @@ Route :: get ('/laundry/edit/{id}', [LaundryController::class,'edit'])->name('la
 Route :: put ('/laundry/update/{id}', [LaundryController::class,'update'])->name('laundry.update');
 // Route untuk cetak struk
 Route::get('/laundry/cetak/{id}', [LaundryController::class, 'cetakStruk'])->name('laundry.cetak');
+// Route update status laundry
+Route::put('/laundry/update-status/{id}', [LaundryController::class, 'updateStatus'])->name('laundry.updateStatus');
 
 //layanan crud
 Route :: get('/layanan', [LayananController::class, 'layanan'])->name('layanan');

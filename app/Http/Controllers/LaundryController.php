@@ -12,11 +12,27 @@ class LaundryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function laundry()
+    public function laundry(Request $request)
     {
         $pelanggan = Pelanggan::all();
         $layanan = Layanan::all();
         $laundry = Laundry::with(['pelanggan', 'layanan'])->get();
+        $query = Laundry::with(['pelanggan', 'layanan']);
+        // Cek apakah user memilih bulan (request 'filter_bulan' tidak kosong)
+        if ($request->has('filter_bulan') && $request->filter_bulan != '') {
+            // Input type="month" menghasilkan format "YYYY-MM" (contoh: 2023-12)
+            $bulanTahun = $request->filter_bulan;
+            $pecah = explode('-', $bulanTahun); // Pisahkan Tahun dan Bulan
+            $tahun = $pecah[0];
+            $bulan = $pecah[1];
+
+            // Filter berdasarkan kolom tgl_masuk
+            $query->whereYear('tgl_masuk', $tahun)
+                ->whereMonth('tgl_masuk', $bulan);
+        }
+
+        // Ambil datanya (urutkan dari yang terbaru)
+        $laundry = $query->latest()->get();
         return response()->view('laundry.laundry', compact('laundry', 'layanan', 'pelanggan'));
     }
 
@@ -169,5 +185,15 @@ class LaundryController extends Controller
 
         // Tampilkan view khusus struk
         return view('laundry.struk', compact('laundry'));
+    }
+    public function updateStatus(Request $request, $id)
+    {
+        $laundry = \App\Models\Laundry::findOrFail($id);
+
+        // Update status sesuai pilihan dropdown
+        $laundry->status = $request->status;
+        $laundry->save();
+
+        return redirect()->back()->with('success', 'Status berhasil diubah!');
     }
 }
