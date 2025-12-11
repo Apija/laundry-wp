@@ -17,28 +17,27 @@ class LaundryController extends Controller
     {
         $pelanggan = Pelanggan::all();
         $layanan = Layanan::all();
-        $laundry = Laundry::with(['pelanggan', 'layanan'])->get();
+
         $query = Laundry::with(['pelanggan', 'layanan']);
-        // Cek apakah user memilih bulan (request 'filter_bulan' tidak kosong)
+
+        // Filter bulanan
         if ($request->has('filter_bulan') && $request->filter_bulan != '') {
-            // Input type="month" menghasilkan format "YYYY-MM" (contoh: 2023-12)
             $bulanTahun = $request->filter_bulan;
-            $pecah = explode('-', $bulanTahun); // Pisahkan Tahun dan Bulan
+            $pecah = explode('-', $bulanTahun);
             $tahun = $pecah[0];
             $bulan = $pecah[1];
 
-            // Filter berdasarkan kolom tgl_masuk
             $query->whereYear('tgl_masuk', $tahun)
                 ->whereMonth('tgl_masuk', $bulan);
         }
 
-        // Ambil datanya (urutkan dari yang terbaru)
         $laundry = $query->latest()->get();
-        return response()->view('laundry.laundry', compact('laundry', 'layanan', 'pelanggan'));
+
+        return view('laundry.laundry', compact('laundry', 'layanan', 'pelanggan'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show Create Form
      */
     public function create()
     {
@@ -47,34 +46,95 @@ class LaundryController extends Controller
         return view('laundry.create', compact('pelanggan', 'layanan'));
     }
 
+    /**
+     * Store Data Laundry
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'id_pelanggan' => 'required|exists:pelanggans,id_pelanggan',
+            'id_layanan' => 'required|exists:layanans,id_layanan',
+            'berat' => 'required|numeric',
+            'status' => 'required|max:45',
+            'tgl_masuk' => 'required|date',
+        ]);
+
+        // Ambil layanan
+        $layanan = Layanan::findOrFail($request->id_layanan);
+
+        // ==========================
+        // GENERATE RESI OTOMATIS
+        // ==========================
+        $tanggal = now()->format('ymd');
+        $kode = $layanan->kode;
+
+        $latest = Laundry::where('id_layanan', $request->id_layanan)
+            ->whereDate('tgl_masuk', now())
+            ->orderBy('id_laundry', 'desc')
+            ->first();
+
+        $urut = $latest ? intval(substr($latest->resi, -3)) + 1 : 1;
+        $resi = $kode . $tanggal . str_pad($urut, 3, '0', STR_PAD_LEFT);
+
+        // Hitung total harga
+        $total_harga = $request->berat * $layanan->harga_perkilo;
+
+        // ==========================
+        // HITUNG TGL SELESAI OTOMATIS
+        // ==========================
+        $tgl_selesai = date('Y-m-d', strtotime($request->tgl_masuk . " + {$layanan->estimasi} days"));
+
+        // Simpan data laundry
+        Laundry::create([
+            'id_pelanggan' => $request->id_pelanggan,
+            'id_layanan' => $request->id_layanan,
+            'resi' => $resi,
+            'berat' => $request->berat,
+            'total_harga' => $total_harga,
+            'status' => $request->status,
+            'tgl_masuk' => $request->tgl_masuk,
+            'tgl_selesai' => $tgl_selesai,
+        ]);
+
+        return redirect('laundry')->with('success', 'Laundry berhasil ditambahkan!');
+    }
+
+
+    /**
+     * Delete
+     */
     public function delete(Laundry $id)
     {
         $id->delete();
         return redirect('laundry')->with('success', 'Data berhasil dihapus');
     }
 
+    /**
+     * Cetak Struk
+     */
     public function cetakStruk($id_laundry)
     {
-        // Ambil data laundry berdasarkan ID, lengkap dengan relasi pelanggan dan layanan
-        $laundry = \App\Models\Laundry::with(['pelanggan', 'layanan'])->findOrFail($id_laundry);
-
-        // Tampilkan view khusus struk
+        $laundry = Laundry::with(['pelanggan', 'layanan'])->findOrFail($id_laundry);
         return view('laundry.struk', compact('laundry'));
     }
+
+    /**
+     * Update Status
+     */
     public function updateStatus(Request $request, $id)
     {
-        $laundry = \App\Models\Laundry::findOrFail($id);
-
-        // Update status sesuai pilihan dropdown
+        $laundry = Laundry::findOrFail($id);
         $laundry->status = $request->status;
         $laundry->save();
 
         return redirect()->back()->with('success', 'Status berhasil diubah!');
     }
 
+    /**
+     * Export Laporan
+     */
     public function exportLaporan(Request $request)
     {
-        // 1. Logika Filter (Sama seperti sebelumnya)
         $query = Laundry::with(['pelanggan', 'layanan']);
         $judul = "Laporan-Laundry";
         $periode = "";
@@ -86,6 +146,7 @@ class LaundryController extends Controller
             $judul .= "-Bulanan-" . $request->filter_bulan;
             $periode = "Bulan: " . date('F Y', strtotime($request->filter_bulan));
         } elseif ($request->jenis == 'mingguan' && $request->has('filter_minggu')) {
+
             $dto = new \DateTime();
             $dto->setISODate((int)substr($request->filter_minggu, 0, 4), (int)substr($request->filter_minggu, 6));
             $start = $dto->format('Y-m-d');
@@ -100,15 +161,11 @@ class LaundryController extends Controller
         $data = $query->get();
         $totalPendapatan = $data->sum('total_harga');
 
-        // 2. Cek Format Download (PDF atau Excel)
         if ($request->format == 'pdf') {
-            // Load View khusus PDF
             $pdf = Pdf::loadView('laundry.export_excel', compact('data', 'periode', 'totalPendapatan'));
-            // Atur kertas jadi Landscape agar tabel muat
             $pdf->setPaper('a4', 'landscape');
             return $pdf->download($judul . '.pdf');
         } else {
-            // Format Excel (Menggunakan View HTML agar Rapi ada garisnya)
             header("Content-Type: application/vnd.ms-excel");
             header("Content-Disposition: attachment; filename=$judul.xls");
             header("Pragma: no-cache");

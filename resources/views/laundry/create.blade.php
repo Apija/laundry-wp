@@ -79,16 +79,7 @@
                                     @enderror
                                     </div>
                                 </div>
-                                <div class="row mb-6" >
-                                    <label class="col-sm-2 col-form-label" for="tgl_selesai">Tanggal Selesai :</label>
-                                    <div class="col-sm-10">
-                                    <input type="date" class="form-control @error('tgl_selesai') is-invalid @enderror"
-                                        id="tgl_selesai" name="tgl_selesai" value="{{ old('tgl_selesai') }}">
-                                    @error('tgl_selesai')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                    </div>
-                                </div>
+                                <input type="hidden" id="estimasi" name="estimasi">
                                 <div class="row justify-content-end">
                                     <div class="col-sm-10">
                                         <button type="submit" class="btn btn-primary">Send</button>
