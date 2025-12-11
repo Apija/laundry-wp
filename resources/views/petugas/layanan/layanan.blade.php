@@ -8,7 +8,7 @@
                 <!-- Basic Bootstrap Table -->
                 <div class="card">
                     <h5 class="card-header">Layanan</h5>
-                    <a href="{{ route('layanan.create') }}" class="btn" style="margin-left: 700px">Add Data</a>
+                    <a href="{{ route('petugas.layanan.create') }}" class="btn" style="margin-left: 700px">Add Data</a>
                     <div class="table-responsive text-nowrap">
                         <table class="table">
                             <thead>
@@ -39,10 +39,10 @@
                                                     <i class="icon-base bx bx-dots-vertical-rounded"></i>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="{{ route('layanan.edit', $l->id_layanan) }}"><i
+                                                    <a class="dropdown-item" href="{{ route('petugas.layanan.edit', $l->id_layanan) }}"><i
                                                             class="icon-base bx bx-edit-alt me-1"></i> Edit</a>
                                                      <form id="delete-form-{{ $l->id_layanan }}"
-                                                        action="{{ route('layanan.delete', $l->id_layanan) }}"
+                                                        action="{{ route('petugas.layanan.delete', $l->id_layanan) }}"
                                                         method="POST" style="display: none;">
                                                         @csrf
                                                         @method('DELETE')

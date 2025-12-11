@@ -94,13 +94,13 @@ class PetugasLaundryController extends Controller
             'tgl_selesai' => $tgl_selesai,
         ]);
 
-        return redirect('petugas.laundry')->with('success', 'Laundry berhasil ditambahkan!');
+        return redirect()->route('petugas.laundry')->with('success', 'Laundry berhasil ditambahkan!');
     }
 
     public function delete(Laundry $id)
     {
         $id->delete();
-        return redirect('petugas.laundry')->with('success', 'Data berhasil dihapus');
+        return redirect()->route('petugas.laundry')->with('success', 'Data berhasil dihapus');
     }
 
     public function cetakStruk($id_laundry)
@@ -148,7 +148,7 @@ class PetugasLaundryController extends Controller
         }
 
         $data = $query->get();
-        $totalPendapatan = $data->sum('total_harga');
+        $totalPendapatan = $data->where('status', '!=', 'Dibatalkan')->sum('total_harga');
 
         // 2. Cek Format Download (PDF atau Excel)
         if ($request->format == 'pdf') {

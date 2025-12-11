@@ -13,7 +13,7 @@
                             <h5 class="mb-0">Tambah Member</h5>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('pelanggan.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('petugas.pelanggan.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row mb-6">
                                     <label class="col-sm-2 col-form-label" for="nama">Nama</label>

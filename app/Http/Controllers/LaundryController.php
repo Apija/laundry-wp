@@ -98,17 +98,6 @@ class LaundryController extends Controller
 
         return redirect('laundry')->with('success', 'Laundry berhasil ditambahkan!');
     }
-
-
-    /**
-     * Delete
-     */
-    public function delete(Laundry $id)
-    {
-        $id->delete();
-        return redirect('laundry')->with('success', 'Data berhasil dihapus');
-    }
-
     /**
      * Cetak Struk
      */
@@ -159,7 +148,7 @@ class LaundryController extends Controller
         }
 
         $data = $query->get();
-        $totalPendapatan = $data->sum('total_harga');
+        $totalPendapatan = $data->where('status', '!=', 'Dibatalkan')->sum('total_harga');
 
         if ($request->format == 'pdf') {
             $pdf = Pdf::loadView('laundry.export_excel', compact('data', 'periode', 'totalPendapatan'));

@@ -13,13 +13,13 @@
             margin-top: 20px;
         }
         th, td {
-            border: 1px solid #000; /* Garis hitam tegas */
+            border: 1px solid #000;
             padding: 8px;
             text-align: left;
             font-size: 12px;
         }
         th {
-            background-color: #d1e7dd; /* Warna hijau muda header */
+            background-color: #d1e7dd;
             font-weight: bold;
             text-align: center;
         }
@@ -28,6 +28,13 @@
         .total-row {
             background-color: #f8f9fa;
             font-weight: bold;
+        }
+
+        /* --- TAMBAHAN STYLE UNTUK BATAL --- */
+        .canceled {
+            background-color: #ffc9c9 !important; /* Warna Merah Muda */
+            color: #900000; /* Teks Merah Gelap */
+            text-decoration: line-through; /* Coret tulisan (Opsional, hapus jika tidak suka) */
         }
     </style>
 </head>
@@ -51,7 +58,7 @@
         </thead>
         <tbody>
             @foreach($data as $key => $item)
-            <tr>
+            <tr class="{{ $item->status == 'Dibatalkan' ? 'canceled' : '' }}">
                 <td class="text-center">{{ $key + 1 }}</td>
                 <td>{{ $item->tgl_masuk }}</td>
                 <td>{{ $item->pelanggan->nama ?? '-' }}</td>

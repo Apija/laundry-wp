@@ -185,6 +185,15 @@
                                                             <i class="bx bx-package me-1 text-primary"></i> Diambil
                                                         </button>
                                                     </form>
+                                                    <form action="{{ route('laundry.updateStatus', $ldr->id_laundry) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <input type="hidden" name="status" value="Dibatalkan">
+                                                        <button type="submit" class="dropdown-item">
+                                                            <i class="bx bx-x-circle me-1 text-primary"></i> Dibatalkan
+                                                        </button>
+                                                    </form>
 
                                                 </div>
                                             </div>

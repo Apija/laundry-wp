@@ -19,7 +19,7 @@
                                 </button>
 
                                 @if (request('filter_bulan'))
-                                    <a href="{{ route('laundry') }}" class="btn btn-outline-secondary" title="Reset Filter">
+                                    <a href="{{ route('petugas.laundry') }}" class="btn btn-outline-secondary" title="Reset Filter">
                                         <i class="icon-base bx bx-x"></i>
                                     </a>
                                 @endif
@@ -82,7 +82,7 @@
                                                 </div>
 
                                                 <div class="tab-pane fade" id="tab-minggu">
-                                                    <form action="{{ route('laundry.export') }}" method="GET">
+                                                    <form action="{{ route('petugas.laundry.export') }}" method="GET">
                                                         <input type="hidden" name="jenis" value="mingguan">
 
                                                         <div class="mb-3">
@@ -158,7 +158,7 @@
 
                                                 <div class="dropdown-menu">
 
-                                                    <form action="{{ route('laundry.updateStatus', $ldr->id_laundry) }}"
+                                                    <form action="{{ route('petugas.laundry.updateStatus', $ldr->id_laundry) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('PUT')
@@ -167,7 +167,7 @@
                                                             <i class="bx bx-loader-circle me-1 text-warning"></i> Sedang dalam proses
                                                         </button>
                                                     </form>
-                                                    <form action="{{ route('laundry.updateStatus', $ldr->id_laundry) }}"
+                                                    <form action="{{ route('petugas.laundry.updateStatus', $ldr->id_laundry) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('PUT')
@@ -176,13 +176,22 @@
                                                             <i class="bx bx-check-circle me-1 text-success"></i> Selesai
                                                         </button>
                                                     </form>
-                                                    <form action="{{ route('laundry.updateStatus', $ldr->id_laundry) }}"
+                                                    <form action="{{ route('petugas.laundry.updateStatus', $ldr->id_laundry) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('PUT')
                                                         <input type="hidden" name="status" value="Diambil">
                                                         <button type="submit" class="dropdown-item">
                                                             <i class="bx bx-package me-1 text-primary"></i> Diambil
+                                                        </button>
+                                                    </form>
+                                                    <form action="{{ route('laundry.updateStatus', $ldr->id_laundry) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <input type="hidden" name="status" value="Dibatalkan">
+                                                        <button type="submit" class="dropdown-item">
+                                                            <i class="bx bx-x-circle me-1 text-primary"></i> Dibatalkan
                                                         </button>
                                                     </form>
 
@@ -199,7 +208,7 @@
                                                 </button>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item"
-                                                        href="{{ route('laundry.cetak', $ldr->id_laundry) }}"
+                                                        href="{{ route('petugas.laundry.cetak', $ldr->id_laundry) }}"
                                                         target="_blank">
                                                         <i class="icon-base bx bx-receipt me-1"></i> Cetak
                                                     </a>

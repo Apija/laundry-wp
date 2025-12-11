@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layout.main3')
 @section('content')
     <!-- Content wrapper -->
     <div class="content-wrapper">
@@ -13,7 +13,7 @@
                             <h5 class="mb-0">Tambah Layanan</h5>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('layanan.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('petugas.layanan.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row mb-6">
                                     <label class="col-sm-2 col-form-label" for="nama">Kode Layanan</label>

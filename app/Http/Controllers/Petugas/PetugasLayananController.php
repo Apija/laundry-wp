@@ -51,7 +51,7 @@ class PetugasLayananController extends Controller
             'harga_perkilo' => $request->harga_perkilo,
             'estimasi' => $request->estimasi,
         ]);
-        return redirect('petugas.layanan');
+        return redirect()->route('petugas.layanan');
     }
 
     //tampil edit
@@ -89,12 +89,12 @@ class PetugasLayananController extends Controller
             'estimasi' => $request->estimasi,
         ]);
 
-        return redirect('petugas.layanan');
+        return redirect()->route('petugas.layanan');
     }
     //delete    
     public function delete(Layanan $id)
     {
         $id->delete();
-        return redirect('petugas.layanan')->with('success', 'Data berhasil dihapus');
+        return redirect()->route('petugas.layanan')->with('success', 'Data berhasil dihapus');
     }
 }

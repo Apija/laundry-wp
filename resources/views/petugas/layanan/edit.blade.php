@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layout.main3')
 @section('content')
     <!-- Content wrapper -->
     <div class="content-wrapper">
@@ -13,7 +13,7 @@
                             <h5 class="mb-0">Edit Admin</h5>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('layanan.update', $id->id_layanan) }}" method="POST"
+                            <form action="{{ route('petugas.layanan.update', $id->id_layanan) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')

@@ -44,7 +44,7 @@ class PetugasPelangganController extends Controller
             'no_hp' => $request->no_hp,
             'alamat' => $request->alamat,
         ]);
-        return redirect('petugas.pelanggan');
+        return redirect()->route('petugas.pelanggan');
     }
     //Tampil Edit
     public function edit(Pelanggan $id)
@@ -80,13 +80,13 @@ class PetugasPelangganController extends Controller
             'alamat' => $request->alamat,
         ]);
 
-        return redirect('petugas.pelanggan');
+        return redirect()->route('petugas.pelanggan');
     }
     //delete
     public function delete(Pelanggan $id)
     {
         $id->delete();
 
-        return redirect('petugas.pelanggan')->with('success', 'Data berhasil dihapus');
+        return redirect()->route('petugas.pelanggan')->with('success', 'Data berhasil dihapus');
     }
 }
