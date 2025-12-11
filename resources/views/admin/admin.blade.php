@@ -29,6 +29,7 @@
                                         </td>
                                         <td>{{ $u->name }}</td>
                                         <td>{{ $u->email }}</td>
+                                        <td>{{ $u->role }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"

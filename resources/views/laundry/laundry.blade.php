@@ -164,11 +164,9 @@
                                                         @method('PUT')
                                                         <input type="hidden" name="status" value="Sedang dalam proses">
                                                         <button type="submit" class="dropdown-item">
-                                                            <i class="bx bx-loader-circle me-1 text-warning"></i> Sedang
-                                                            dalam proses
+                                                            <i class="bx bx-loader-circle me-1 text-warning"></i> Sedang dalam proses
                                                         </button>
                                                     </form>
-
                                                     <form action="{{ route('laundry.updateStatus', $ldr->id_laundry) }}"
                                                         method="POST">
                                                         @csrf
@@ -178,7 +176,6 @@
                                                             <i class="bx bx-check-circle me-1 text-success"></i> Selesai
                                                         </button>
                                                     </form>
-
                                                     <form action="{{ route('laundry.updateStatus', $ldr->id_laundry) }}"
                                                         method="POST">
                                                         @csrf

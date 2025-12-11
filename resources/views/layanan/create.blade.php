@@ -26,7 +26,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-6">
-                                    <label class="col-sm-2 col-form-label" for="no_hp">Nama Layanan </label>
+                                    <label class="col-sm-2 col-form-label" for="no_hp">Nama Layanan</label>
                                     <div class="col-sm-10">
                                         <input type="text"
                                             class="form-control @error('nama_layanan') is-invalid @enderror"
@@ -37,12 +37,23 @@
                                     </div>
                                 </div>
                                 <div class="row mb-6">
-                                    <label class="col-sm-2 col-form-label" for="no_hp">Harga Perkilo </label>
+                                    <label class="col-sm-2 col-form-label" for="harga_perkilo">Harga Perkilo</label>
                                     <div class="col-sm-10">
                                         <input type="text"
                                             class="form-control @error('harga_perkilo') is-invalid @enderror"
                                             id="harga_perkilo" name="harga_perkilo" value="{{ old('harga_perkilo') }}">
                                         @error('harga_perkilo')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-6">
+                                    <label class="col-sm-2 col-form-label" for="estimasi">Estimasi</label>
+                                    <div class="col-sm-10">
+                                        <input type="text"
+                                            class="form-control @error('estimasi') is-invalid @enderror"
+                                            id="estimasi" name="estimasi" value="{{ old('estimasi') }}">
+                                        @error('estimasi')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>

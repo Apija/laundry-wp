@@ -31,6 +31,7 @@ class PetugasLayananController extends Controller
                 'kode' => 'required|max:20',
                 'nama_layanan' => 'required|max:50',
                 'harga_perkilo' => 'required|max:50',
+                'harga_perkilo' => 'required|max:10',
             ],
             [
                 'kode.required' => 'Nama layanan wajib diisi',
@@ -39,6 +40,8 @@ class PetugasLayananController extends Controller
                 'nama_layanan.max' => 'Nama maksimal 50 karakter',
                 'harga_perkilo.required' => 'Harga Perkilo wajib diisi',
                 'harga_perkilo.max' => 'jenis maksimal 50 karakter',
+                'estimasi.required' => 'Harga Perkilo wajib diisi',
+                'estimasi.max' => 'jenis maksimal 10 karakter',
             ]
         );
         //tambah data produk
@@ -46,6 +49,7 @@ class PetugasLayananController extends Controller
             'kode' => $request->kode,
             'nama_layanan' => $request->nama_layanan,
             'harga_perkilo' => $request->harga_perkilo,
+            'estimasi' => $request->estimasi,
         ]);
         return redirect('petugas.layanan');
     }
@@ -63,6 +67,7 @@ class PetugasLayananController extends Controller
             'kode' => 'required|max:20',
             'nama_layanan' => 'required|max:50',
             'harga_perkilo' => 'required|numeric',
+            'estimasi' => 'required|numeric',
         ], [
             'kode.required' => 'Nama layanan wajib diisi',
             'kode.max' => 'Nama maksimal 20 karakter',
@@ -70,6 +75,8 @@ class PetugasLayananController extends Controller
             'nama_layanan.max' => 'Nama maksimal 50 karakter',
             'harga_perkilo.required' => 'Harga Perkilo wajib diisi',
             'harga_perkilo.max' => 'jenis maksimal 50 karakter',
+            'estimasi.required' => 'Harga Perkilo wajib diisi',
+            'estimasi.max' => 'jenis maksimal 10 karakter',
         ]);
         //ambil produk lama
         $layanan = Layanan::find($id);
@@ -79,6 +86,7 @@ class PetugasLayananController extends Controller
             'kode' => $request->kode,
             'nama_layanan' => $request->nama_layanan,
             'harga_perkilo' => $request->harga_perkilo,
+            'estimasi' => $request->estimasi,
         ]);
 
         return redirect('petugas.layanan');
