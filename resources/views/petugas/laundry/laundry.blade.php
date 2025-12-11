@@ -10,7 +10,7 @@
 
                         <div class="d-flex align-items-center gap-2">
 
-                            <form action="{{ route('laundry') }}" method="GET" class="d-flex gap-2">
+                            <form action="{{ route('petugas.laundry') }}" method="GET" class="d-flex gap-2">
                                 <input type="month" name="filter_bulan" class="form-control"
                                     value="{{ request('filter_bulan') }}" style="width: auto;">
 
@@ -52,7 +52,7 @@
 
                                             <div class="tab-content">
                                                 <div class="tab-pane fade show active" id="tab-bulan">
-                                                    <form action="{{ route('laundry.export') }}" method="GET">
+                                                    <form action="{{ route('petugas.laundry.export') }}" method="GET">
                                                         <input type="hidden" name="jenis" value="bulanan">
 
                                                         <div class="mb-3">
@@ -116,7 +116,7 @@
                                 </div>
                             </div>
 
-                            <a href="{{ route('laundry.create') }}" class="btn btn-primary text-nowrap">
+                            <a href="{{ route('petugas.laundry.create') }}" class="btn btn-primary text-nowrap">
                                 Add Data
                             </a>
 
@@ -164,11 +164,9 @@
                                                         @method('PUT')
                                                         <input type="hidden" name="status" value="Sedang dalam proses">
                                                         <button type="submit" class="dropdown-item">
-                                                            <i class="bx bx-loader-circle me-1 text-warning"></i> Sedang
-                                                            dalam proses
+                                                            <i class="bx bx-loader-circle me-1 text-warning"></i> Sedang dalam proses
                                                         </button>
                                                     </form>
-
                                                     <form action="{{ route('laundry.updateStatus', $ldr->id_laundry) }}"
                                                         method="POST">
                                                         @csrf
@@ -178,7 +176,6 @@
                                                             <i class="bx bx-check-circle me-1 text-success"></i> Selesai
                                                         </button>
                                                     </form>
-
                                                     <form action="{{ route('laundry.updateStatus', $ldr->id_laundry) }}"
                                                         method="POST">
                                                         @csrf

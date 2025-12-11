@@ -1,4 +1,4 @@
-@extends('layout.main3')
+@extends('layout.main')
 @section('content')
     <!-- Content wrapper -->
     <div class="content-wrapper">
@@ -13,7 +13,7 @@
                             <h5 class="mb-0">Tambah Laundry</h5>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('laundry.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('petugas.laundry.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row mb-6" >
                                     <label class="col-sm-2 col-form-label" for="id_pelanggan">Nama Pelanngan :</label>
@@ -79,16 +79,7 @@
                                     @enderror
                                     </div>
                                 </div>
-                                <div class="row mb-6" >
-                                    <label class="col-sm-2 col-form-label" for="tgl_selesai">Tanggal Selesai :</label>
-                                    <div class="col-sm-10">
-                                    <input type="date" class="form-control @error('tgl_selesai') is-invalid @enderror"
-                                        id="tgl_selesai" name="tgl_selesai" value="{{ old('tgl_selesai') }}">
-                                    @error('tgl_selesai')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                    </div>
-                                </div>
+                                <input type="hidden" id="tgl_selesai" name="tgl_selesai">
                                 <div class="row justify-content-end">
                                     <div class="col-sm-10">
                                         <button type="submit" class="btn btn-primary">Send</button>

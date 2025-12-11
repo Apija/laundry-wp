@@ -39,18 +39,22 @@
                                     <label class="col-sm-2 col-form-label" for="role">Role :</label>
                                     <div class="col-sm-10">
                                         <select class="form-control @error('role') is-invalid @enderror" id="role"
-                                            name="role" value="{{ old('role') }}">
-                                            <option value="Role">- Pilih Role -</option>
-                                            <option value="Admin">Admin</option>
-                                            <option value="Petugas">Petugas</option>
+                                            name="role">
+                                            <option value="" disabled selected>- Pilih Role -</option>
+                                            <option value="admin">Admin</option>
+                                            <option value="petugas">Petugas</option>
                                         </select>
+                                        @error('role')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
+
                                 <div class="row mb-6">
                                     <label class="col-sm-2 col-form-label" for="password">Password :</label>
                                     <div class="col-sm-10">
                                         <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                            id="password" name="password" value="{{ old('password') }}">
+                                            id="password" name="password">
                                         @error('password')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror

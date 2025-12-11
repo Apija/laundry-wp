@@ -47,6 +47,55 @@ class PetugasLaundryController extends Controller
         $layanan = Layanan::all();
         return view('petugas.laundry.create', compact('pelanggan', 'layanan'));
     }
+    public function store(Request $request)
+    {
+        $request->validate([
+            'id_pelanggan' => 'required|exists:pelanggans,id_pelanggan',
+            'id_layanan' => 'required|exists:layanans,id_layanan',
+            'berat' => 'required|numeric',
+            'status' => 'required|max:45',
+            'tgl_masuk' => 'required|date',
+        ]);
+
+        // Ambil layanan
+        $layanan = Layanan::findOrFail($request->id_layanan);
+
+        // ==========================
+        // GENERATE RESI OTOMATIS
+        // ==========================
+        $tanggal = now()->format('ymd');
+        $kode = $layanan->kode;
+
+        $latest = Laundry::where('id_layanan', $request->id_layanan)
+            ->whereDate('tgl_masuk', now())
+            ->orderBy('id_laundry', 'desc')
+            ->first();
+
+        $urut = $latest ? intval(substr($latest->resi, -3)) + 1 : 1;
+        $resi = $kode . $tanggal . str_pad($urut, 3, '0', STR_PAD_LEFT);
+
+        // Hitung total harga
+        $total_harga = $request->berat * $layanan->harga_perkilo;
+
+        // ==========================
+        // HITUNG TGL SELESAI OTOMATIS
+        // ==========================
+        $tgl_selesai = date('Y-m-d', strtotime($request->tgl_masuk . " + {$layanan->estimasi} days"));
+
+        // Simpan data laundry
+        Laundry::create([
+            'id_pelanggan' => $request->id_pelanggan,
+            'id_layanan' => $request->id_layanan,
+            'resi' => $resi,
+            'berat' => $request->berat,
+            'total_harga' => $total_harga,
+            'status' => $request->status,
+            'tgl_masuk' => $request->tgl_masuk,
+            'tgl_selesai' => $tgl_selesai,
+        ]);
+
+        return redirect('petugas.laundry')->with('success', 'Laundry berhasil ditambahkan!');
+    }
 
     public function delete(Laundry $id)
     {

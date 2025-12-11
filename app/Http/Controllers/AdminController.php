@@ -28,27 +28,29 @@ class AdminController extends Controller
         $request->validate(
             [
                 'name' => 'required|max:45',
-                'email' => 'required|max:45',
-                'password' => 'required|max:45',
+                'email' => 'required|max:45|email|unique:users,email',
+                'role' => 'required|in:admin,petugas',
+                'password' => 'required|confirmed|max:45',
             ],
             [
                 'name.required' => 'Nama wajib diisi',
-                'name.max' => 'Nama maksimal 45 karakter',
-                'email.required' => 'jenis wajib diisi',
-                'email.max' => 'jenis maksimal 45 karakter',
-                'password.required' => 'jenis wajib diisi',
-                'password.max' => 'jenis maksimal 45 karakter',
+                'email.required' => 'Email wajib diisi',
+                'role.required' => 'Role wajib dipilih',
+                'password.required' => 'Password wajib diisi',
                 'password.confirmed' => 'Konfirmasi password tidak cocok'
             ]
         );
-        //tambah data 
+
         User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'role' => strtolower($request->role), // <<< WAJIB
             'password' => Hash::make($request->password),
         ]);
-        return redirect()->route('user');
+
+        return redirect()->route('user')->with('success', 'User berhasil ditambahkan');
     }
+
     //Tampil Edit
     public function edit(User $id)
     {
@@ -64,32 +66,39 @@ class AdminController extends Controller
             [
                 'name' => 'required|max:45',
                 'email' => 'required|max:45',
+                'role' => 'required|in:admin,petugas',
                 'password' => 'nullable|confirmed|max:45',
             ],
             [
                 'name.required' => 'Nama wajib diisi',
                 'name.max' => 'Nama maksimal 45 karakter',
-                'email.required' => 'jenis wajib diisi',
-                'email.max' => 'jenis maksimal 45 karakter',
-                'password.max' => 'jenis maksimal 45 karakter',
+                'email.required' => 'Email wajib diisi',
+                'email.max' => 'Email maksimal 45 karakter',
+                'role.required' => 'Role wajib dipilih',
+                'password.max' => 'Password maksimal 45 karakter',
                 'password.confirmed' => 'Konfirmasi password tidak cocok'
             ]
         );
 
-        //ambil produk lama
+        //ambil user
         $user = User::find($id);
-    
-        //update data produk
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-        ]);
 
+        //update data
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role = strtolower($request->role);
+
+        // Jika password diisi, update password
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
+
+        // SIMPAN
+        $user->save();
+
         return redirect()->route('user')->with('success', 'Data berhasil diedit');
     }
+
     //delete
     public function delete(user $id)
     {
