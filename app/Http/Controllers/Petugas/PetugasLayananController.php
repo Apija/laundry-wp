@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Petugas;
+
+use App\Http\Controllers\Controller;
 use App\Models\Layanan;
 use Illuminate\Http\Request;
 
-class LayananController extends Controller
+class PetugasLayananController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -12,13 +14,13 @@ class LayananController extends Controller
     public function layanan()
     {
         $layanan = Layanan::all();
-        return view('layanan.layanan', compact('layanan'));
+        return view('petugas.layanan.layanan', compact('layanan'));
     }
 
     //tampil create
     public function create()
     {
-        return view('layanan.create');
+        return view('petugas.layanan.create');
     }
 
     //tambah data
@@ -45,13 +47,13 @@ class LayananController extends Controller
             'nama_layanan' => $request->nama_layanan,
             'harga_perkilo' => $request->harga_perkilo,
         ]);
-        return redirect('layanan');
+        return redirect('petugas.layanan');
     }
 
     //tampil edit
     public function edit(Layanan $id)
     {
-        return view('layanan.edit', compact('id'));
+        return view('petugas.layanan.edit', compact('id'));
     }
 
     //update 
@@ -79,12 +81,12 @@ class LayananController extends Controller
             'harga_perkilo' => $request->harga_perkilo,
         ]);
 
-        return redirect('layanan');
+        return redirect('petugas.layanan');
     }
     //delete    
     public function delete(Layanan $id)
     {
         $id->delete();
-        return redirect('layanan')->with('success', 'Data berhasil dihapus');
+        return redirect('petugas.layanan')->with('success', 'Data berhasil dihapus');
     }
 }

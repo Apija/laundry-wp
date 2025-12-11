@@ -1,21 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Petugas;
+
+use App\Http\Controllers\Controller;
 use App\Models\Pelanggan;
 use Illuminate\Http\Request;
 
-class PelangganController extends Controller
+class PetugasPelangganController extends Controller
 {
     //tampilan table
     public function pelanggan()
     {
         $pelanggan = Pelanggan::all();
-        return view('pelanggan.pelanggan', compact('pelanggan'));
+        return view('petugas.pelanggan.pelanggan', compact('pelanggan'));
     }
     // Tampil tambah data
     public function create()
     {
-        return view('pelanggan.create');
+        return view('petugas.pelanggan.create');
     }
     
     //menyimpan data
@@ -42,12 +44,12 @@ class PelangganController extends Controller
             'no_hp' => $request->no_hp,
             'alamat' => $request->alamat,
         ]);
-        return redirect('pelanggan');
+        return redirect('petugas.pelanggan');
     }
     //Tampil Edit
     public function edit(Pelanggan $id)
     {
-        return view('pelanggan.edit', compact('id'));
+        return view('petugas.pelanggan.edit', compact('id'));
     }
 
     
@@ -78,13 +80,13 @@ class PelangganController extends Controller
             'alamat' => $request->alamat,
         ]);
 
-        return redirect('pelanggan');
+        return redirect('petugas.pelanggan');
     }
     //delete
     public function delete(Pelanggan $id)
     {
         $id->delete();
 
-        return redirect('pelanggan')->with('success', 'Data berhasil dihapus');
+        return redirect('petugas.pelanggan')->with('success', 'Data berhasil dihapus');
     }
 }

@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('layanans', function (Blueprint $table) {
             $table->bigIncrements('id_layanan');
-            $table-> string('kode',15);
+            $table->string('kode',15);
             $table->string('nama_layanan',25);
             $table->float('harga_perkilo');
+            $table->int('estimasi');
             $table->timestamps();
         });
     }

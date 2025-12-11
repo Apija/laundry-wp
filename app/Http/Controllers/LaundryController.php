@@ -75,7 +75,7 @@ class LaundryController extends Controller
     public function exportLaporan(Request $request)
     {
         // 1. Logika Filter (Sama seperti sebelumnya)
-        $query = \App\Models\Laundry::with(['pelanggan', 'layanan']);
+        $query = Laundry::with(['pelanggan', 'layanan']);
         $judul = "Laporan-Laundry";
         $periode = "";
 

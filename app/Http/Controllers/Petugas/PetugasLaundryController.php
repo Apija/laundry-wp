@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Petugas;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Laundry;
 use App\Models\Layanan;
 use App\Models\Pelanggan;
 use Barryvdh\DomPDF\Facade\Pdf;
 
-class LaundryController extends Controller
+class PetugasLaundryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +35,7 @@ class LaundryController extends Controller
 
         // Ambil datanya (urutkan dari yang terbaru)
         $laundry = $query->latest()->get();
-        return response()->view('laundry.laundry', compact('laundry', 'layanan', 'pelanggan'));
+        return response()->view('petugas.laundry.laundry', compact('laundry', 'layanan', 'pelanggan'));
     }
 
     /**
@@ -44,26 +45,26 @@ class LaundryController extends Controller
     {
         $pelanggan = Pelanggan::all();
         $layanan = Layanan::all();
-        return view('laundry.create', compact('pelanggan', 'layanan'));
+        return view('petugas.laundry.create', compact('pelanggan', 'layanan'));
     }
 
     public function delete(Laundry $id)
     {
         $id->delete();
-        return redirect('laundry')->with('success', 'Data berhasil dihapus');
+        return redirect('petugas.laundry')->with('success', 'Data berhasil dihapus');
     }
 
     public function cetakStruk($id_laundry)
     {
         // Ambil data laundry berdasarkan ID, lengkap dengan relasi pelanggan dan layanan
-        $laundry = \App\Models\Laundry::with(['pelanggan', 'layanan'])->findOrFail($id_laundry);
+        $laundry = Laundry::with(['pelanggan', 'layanan'])->findOrFail($id_laundry);
 
         // Tampilkan view khusus struk
-        return view('laundry.struk', compact('laundry'));
+        return view('petugas.laundry.struk', compact('laundry'));
     }
     public function updateStatus(Request $request, $id)
     {
-        $laundry = \App\Models\Laundry::findOrFail($id);
+        $laundry = Laundry::findOrFail($id);
 
         // Update status sesuai pilihan dropdown
         $laundry->status = $request->status;
@@ -75,7 +76,7 @@ class LaundryController extends Controller
     public function exportLaporan(Request $request)
     {
         // 1. Logika Filter (Sama seperti sebelumnya)
-        $query = \App\Models\Laundry::with(['pelanggan', 'layanan']);
+        $query = Laundry::with(['pelanggan', 'layanan']);
         $judul = "Laporan-Laundry";
         $periode = "";
 
@@ -103,7 +104,7 @@ class LaundryController extends Controller
         // 2. Cek Format Download (PDF atau Excel)
         if ($request->format == 'pdf') {
             // Load View khusus PDF
-            $pdf = Pdf::loadView('laundry.export_excel', compact('data', 'periode', 'totalPendapatan'));
+            $pdf = Pdf::loadView('petugas.laundry.export_excel', compact('data', 'periode', 'totalPendapatan'));
             // Atur kertas jadi Landscape agar tabel muat
             $pdf->setPaper('a4', 'landscape');
             return $pdf->download($judul . '.pdf');
@@ -114,7 +115,7 @@ class LaundryController extends Controller
             header("Pragma: no-cache");
             header("Expires: 0");
 
-            return view('laundry.export_excel', compact('data', 'periode', 'totalPendapatan'));
+            return view('petugas.laundry.export_excel', compact('data', 'periode', 'totalPendapatan'));
         }
     }
 }
