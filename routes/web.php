@@ -15,7 +15,7 @@ Route :: get ('/', [AuthController::class,'index'])->name('login');
 Route :: post ('/', [AuthController::class,'autheticate'])->name('login.proses');
 Route :: get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route :: get('/dashboard', [AuthController::class,'dashboard'])->name('dashboard');
-
+Route::get('/petugas/dashboard', [AuthController::class, 'petugasdashboard'])->name('petugas.dashboard');
 
 //laundry crud
 Route :: get('/laundry', [LaundryController::class,'laundry'])->name('laundry');
