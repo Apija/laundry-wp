@@ -7,7 +7,7 @@
         <div class="card mb-4">
             <div class="card-body d-flex justify-content-between">
                 <div>
-                    <h4 class="text-primary">Welcome Super Admin! 🎉</h4>
+                    <h4 class="text-primary">Welcome Petugas! 🎉</h4>
                     <p>Haloooo.</p>
                     <a href="#" class="btn btn-outline-primary btn-sm">View Badges</a>
                 </div>

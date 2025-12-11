@@ -36,6 +36,17 @@
                                     </div>
                                 </div>
                                 <div class="row mb-6">
+                                    <label class="col-sm-2 col-form-label" for="role">Role :</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control @error('role') is-invalid @enderror" id="role"
+                                            name="role" value="{{ old('role') }}">
+                                            <option value="Role">- Pilih Role -</option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="Petugas">Petugas</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-6">
                                     <label class="col-sm-2 col-form-label" for="password">Password :</label>
                                     <div class="col-sm-10">
                                         <input type="password" class="form-control @error('password') is-invalid @enderror"
@@ -46,7 +57,8 @@
                                     </div>
                                 </div>
                                 <div class="row mb-6">
-                                    <label class="col-sm-2 col-form-label" for="password_confirmation">Konfirmasi Password :</label>
+                                    <label class="col-sm-2 col-form-label" for="password_confirmation">Konfirmasi Password
+                                        :</label>
                                     <div class="col-sm-10">
                                         <input type="password"
                                             class="form-control @error('password_confirmation') is-invalid @enderror"

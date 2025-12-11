@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('kode',15);
             $table->string('nama_layanan',25);
             $table->float('harga_perkilo');
-            $table->int('estimasi');
+            $table->integer('estimasi');
             $table->timestamps();
         });
     }

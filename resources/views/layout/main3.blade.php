@@ -53,34 +53,28 @@
 
                 <ul class="menu-inner">
                     <li class="menu-item">
-                        <a href="{{ route('dashboard') }}" class="menu-link">
+                        <a href="{{ route('petugas.dashboard') }}" class="menu-link">
                             <i class="menu-icon bx bx-home-smile"></i>
                             <div>Dashboard</div>
                         </a>
                     </li>
 
                     <li class="menu-item">
-                        <a href="{{ route('layanan') }}" class="menu-link">
+                        <a href="{{ route('petugas.layanan') }}" class="menu-link">
                             <i class="menu-icon bx bx-basket"></i>
                             <div>Layanan</div>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="{{ route('pelanggan') }}" class="menu-link">
+                        <a href="{{ route('petugas.pelanggan') }}" class="menu-link">
                             <i class="menu-icon bx bx-user"></i>
                             <div>Member</div>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="{{ route('laundry') }}" class="menu-link">
+                        <a href="{{ route('petugas.laundry') }}" class="menu-link">
                             <i class="menu-icon bx bx-credit-card"></i>
                             <div>Transaksi</div>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="{{ route('user') }}" class="menu-link">
-                            <i class="menu-icon bx bx-user"></i>
-                            <div>Admin</div>
                         </a>
                     </li>
                 </ul>

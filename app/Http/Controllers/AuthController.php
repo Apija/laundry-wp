@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
@@ -16,17 +17,21 @@ class AuthController extends Controller
     {
         return view('dashboard');
     }
+    public function petugasdashboard()
+    {
+        return view('petugas.dashboard');
+    }
     //verifikasi use and password
     public function autheticate(Request $request)
     {
         Session::flash('email', $request->email);
+
         $request->validate([
             'email' => 'required',
             'password' => 'required'
         ], [
             'email.required' => 'email wajib disini',
             'password.required' => 'password wajib disini',
-
         ]);
 
         $infologin = [
@@ -35,12 +40,27 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($infologin)) {
-            return redirect()->route('dashboard');
-        } else {
-            // return 'gagal'
-            return redirect('/')->withErrors('username dan password tidak valid');
+
+            // Ambil user yang sedang login
+            $user = Auth::user();
+
+            // Arahkan sesuai role
+            if ($user->role === 'admin') {
+                return redirect()->route('dashboard'); // admin dashboard
+            }
+
+            if ($user->role === 'petugas') {
+                return redirect()->route('petugas.dashboard'); // petugas dashboard
+            }
+
+            // Jika role tidak dikenali
+            Auth::logout();
+            return redirect('/')->withErrors('Role tidak dikenal.');
         }
+
+        return redirect('/')->withErrors('username dan password tidak valid');
     }
+
     // logout
     public function logout(Request $request)
     {

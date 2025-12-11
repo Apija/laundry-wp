@@ -12,6 +12,7 @@ class Layanan extends Model
         'kode',
         'nama_layanan',
         'harga_perkilo',
+        'estimasi',
     ];
     public function laundries()
     {
