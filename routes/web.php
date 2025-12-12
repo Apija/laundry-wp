@@ -12,8 +12,10 @@ use App\Http\Controllers\AdminController;
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('/member/history', [laundryController::class, 'history'])->name('member.history');
+
 //login dan logout
-Route :: get ('/', [MemberController::class,'index'])->name('member.member');
+Route :: get ('/', [LaundryController::class,'index'])->name('member.member');
 Route :: get ('/login', [AuthController::class,'login'])->name('login');
 Route :: post ('/login', [AuthController::class,'autheticate'])->name('login.proses');
 Route :: get('/logout', [AuthController::class, 'logout'])->name('logout');

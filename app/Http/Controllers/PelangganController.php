@@ -87,4 +87,5 @@ class PelangganController extends Controller
 
         return redirect('pelanggan')->with('success', 'Data berhasil dihapus');
     }
+    
 }

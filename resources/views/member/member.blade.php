@@ -99,11 +99,11 @@
                     <p class="text-muted">Masukkan nomor resi atau nama Anda untuk melacak pesanan</p>
                 </div>
 
-                <form action="#" method="GET"> <div class="input-group input-group-lg input-group-merge mb-3">
+                <form action="{{ route('member.history') }}" method="GET"> <div class="input-group input-group-lg input-group-merge mb-3">
                         <span class="input-group-text bg-white border-end-0" id="basic-addon-search31">
                             <i class="bx bx-search text-muted"></i>
                         </span>
-                        <input type="text" class="form-control border-start-0 ps-0" placeholder="Search" aria-label="Search..." required>
+                        <input type="text" value="{{ old('search', $search ?? '') }}" name="search" class="form-control border-start-0 ps-0" placeholder="Search" aria-label="Search..." required>
                     </div>
                     
                     <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold shadow-sm">

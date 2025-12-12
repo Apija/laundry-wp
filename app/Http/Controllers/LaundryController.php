@@ -13,6 +13,11 @@ class LaundryController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function index()
+    {
+        return view('member.member');
+    }
+
     public function laundry(Request $request)
     {
         $pelanggan = Pelanggan::all();
@@ -162,5 +167,21 @@ class LaundryController extends Controller
 
             return view('laundry.export_excel', compact('data', 'periode', 'totalPendapatan'));
         }
+    }
+    public function history(Request $request)
+    {
+        $search = $request->query('search', '');
+
+        $laundry = Laundry::with('pelanggan')
+            ->when($search !== '', function ($q) use ($search) {
+                $q->where('resi', 'LIKE', "%{$search}%")
+                    ->orWhereHas('pelanggan', function ($q2) use ($search) {
+                        $q2->where('nama', 'LIKE', "%{$search}%");
+                    });
+            })
+            ->latest()
+            ->get();
+
+        return view('member.history', compact('laundry', 'search'));
     }
 }
