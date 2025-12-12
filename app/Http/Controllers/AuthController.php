@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
     //menampilkan login
-    public function index()
+    public function login()
     {
         return view('login');
     }
@@ -55,10 +55,10 @@ class AuthController extends Controller
 
             // Jika role tidak dikenali
             Auth::logout();
-            return redirect('/')->withErrors('Role tidak dikenal.');
+            return redirect('/login')->withErrors('Role tidak dikenal.');
         }
 
-        return redirect('/')->withErrors('username dan password tidak valid');
+        return redirect('/login')->withErrors('username dan password tidak valid');
     }
 
     // logout
@@ -68,6 +68,6 @@ class AuthController extends Controller
         $request->session()->invalidate(); // hapus session
         $request->session()->regenerateToken(); // regenerasi token CSRF
 
-        return redirect('/')->with('success', 'Anda telah logout');
+        return redirect('/login')->with('success', 'Anda telah logout');
     }
 }

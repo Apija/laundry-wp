@@ -41,7 +41,7 @@
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
                     <a href="/" class="app-brand-link">
-                        <span class="app-brand-text demo menu-text fw-bold">Laundry</span>
+                        <span class="app-brand-text demo menu-text fw-bold">Laundry Koe</span>
                     </a>
 
                     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -131,14 +131,6 @@
                                                 <small class="text-body-secondary">Admin</small>
                                             </div>
                                         </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="dropdown-divider my-1"></div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="icon-base bx bx-user icon-md me-3"></i><span>My Profile</span>
                                     </a>
                                 </li>
                                 <li>

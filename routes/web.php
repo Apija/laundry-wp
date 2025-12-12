@@ -6,13 +6,16 @@ use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\Petugas\PetugasLaundryController;
 use App\Http\Controllers\Petugas\PetugasLayananController;
 use App\Http\Controllers\Petugas\PetugasPelangganController;
+use App\Http\Controllers\MemberController;
+
 use App\Http\Controllers\AdminController;
 
 use Illuminate\Support\Facades\Route;
 
 //login dan logout
-Route :: get ('/', [AuthController::class,'index'])->name('login');
-Route :: post ('/', [AuthController::class,'autheticate'])->name('login.proses');
+Route :: get ('/', [MemberController::class,'index'])->name('member.member');
+Route :: get ('/login', [AuthController::class,'login'])->name('login');
+Route :: post ('/login', [AuthController::class,'autheticate'])->name('login.proses');
 Route :: get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route :: get('/dashboard', [AuthController::class,'dashboard'])->name('dashboard');
 Route::get('/petugas/dashboard', [AuthController::class, 'petugasdashboard'])->name('petugas.dashboard');
