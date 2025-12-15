@@ -16,7 +16,7 @@
                                     <th>No</th>
                                     <th>Kode Layanan</th>
                                     <th>Nama Layanan</th>
-                                    <th>Harga /kg</th>
+                                    <th>Harga</th>
                                     <th>Estimasi</th>
                                     <th>Action</th>
                                 </tr>
@@ -30,8 +30,8 @@
                                         </td>
                                         <td>{{ $l->kode }}</td>
                                         <td>{{ $l->nama_layanan }}</td>
-                                        <td>{{ $l->harga_perkilo }}</td>
-                                        <td>{{ $l->estimasi}}</td>
+                                        <td>{{ $l->harga_perkilo }} Kg</td>
+                                        <td>{{ $l->estimasi}} Hari</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"

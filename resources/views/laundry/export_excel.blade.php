@@ -51,7 +51,7 @@
         </thead>
         <tbody>
             @foreach($data as $key => $item)
-            <tr class="{{ $item->status == 'Dibatalkan' ? 'bg-red-200' : '' }}">
+            <tr class="{{ $item->status == 'Dibatalkan' ? 'table-danger' : '' }}">
                 <td class="text-center">{{ $key + 1 }}</td>
                 <td>{{ $item->tgl_masuk }}</td>
                 <td>{{ $item->pelanggan->nama ?? '-' }}</td>

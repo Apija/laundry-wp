@@ -115,8 +115,8 @@
         </div>
 
         <footer class="text-center pb-3">
-            <div class="container text-white-50 small">
-                © <script>document.write(new Date().getFullYear())</script>, made with ❤️ by Laundry Berkah
+            <div class="container text-white small">
+                © <script>document.write(new Date().getFullYear())</script>, made with ❤️ by Laundry Koe
             </div>
         </footer>
 

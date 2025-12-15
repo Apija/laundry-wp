@@ -194,7 +194,6 @@
                                                             <i class="bx bx-x-circle me-1 text-primary"></i> Dibatalkan
                                                         </button>
                                                     </form>
-
                                                 </div>
                                             </div>
                                         </td>

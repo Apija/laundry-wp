@@ -157,6 +157,10 @@
                         <div class="fw-bold text-primary">
                             Total: Rp{{ number_format($item->total_harga, 0, ',', '.') }}
                         </div>
+                        <a href="{{ route('laundry.cetak', $item->id_laundry) }}"
+                            target="_blank" class="btn btn-primary text-nowrap">
+                            Cetak Struk
+                        </a>
                     </div>
 
                 </div>
@@ -170,7 +174,7 @@
         </div>
 
         <footer class="text-center pb-3">
-            <div class="container text-white-50 small">
+            <div class="container text-white small">
                 ©
                 <script>
                     document.write(new Date().getFullYear())
