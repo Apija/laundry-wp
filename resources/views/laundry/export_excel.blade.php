@@ -51,13 +51,14 @@
         </thead>
         <tbody>
             @foreach($data as $key => $item)
-            <tr style="{{ $item->status == 'Dibatalkan' ? 'background-color:#ffcccc;color:#721c24;font-weight:bold;' : '' }}">
+            <tr style="{{ $item->status_laundry == 'Dibatalkan' ? 'background-color:#ffcccc;color:#721c24;font-weight:bold;' : '' }}">
                 <td class="text-center">{{ $key + 1 }}</td>
                 <td>{{ $item->tgl_masuk }}</td>
                 <td>{{ $item->pelanggan->nama ?? '-' }}</td>
                 <td>{{ $item->layanan->nama_layanan ?? '-' }}</td>
                 <td style="mso-number-format:'\@'">{{ $item->resi }}</td>
-                <td>{{ $item->status }}</td>
+                <td>{{ $item->status_laundry }}</td>
+                <td>{{ $item->status_pembayaran }}</td>
                 <td class="text-center">{{ $item->berat }} Kg</td>
                 <td class="text-right">Rp{{ number_format($item->total_harga, 0, ',', '.') }}</td>
             </tr>

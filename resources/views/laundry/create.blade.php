@@ -58,14 +58,25 @@
                                 </div>
                                 <input type="hidden" id="total_harga" name="total_harga">
                                 <div class="row mb-6" >
-                                    <label class="col-sm-2 col-form-label" for="status">Status :</label>
+                                    <label class="col-sm-2 col-form-label" for="status_laundry">Status Laundry:</label>
                                     <div class="col-sm-10">
-                                    <select class="form-control @error('status') is-invalid @enderror" id="status"
-                                        name="status" value="{{ old('status') }}">
-                                        <option value="Status">- Pilih Status -</option>
+                                    <select class="form-control @error('status_laundry') is-invalid @enderror" id="status_laundry"
+                                        name="status_laundry" value="{{ old('status_laundry') }}">
+                                        <option value="Status Laundry">- Pilih Status Laundry -</option>
                                         <option value="Sedang dalam proses">Sedang dalam proses</option>
                                         <option value="Sudah selesai">Sudah Selesai</option>
                                         <option value="Dibatalkan">Dibatalkan</option>
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-6" >
+                                    <label class="col-sm-2 col-form-label" for="status_pembayaran">Status Pembayaran :</label>
+                                    <div class="col-sm-10">
+                                    <select class="form-control @error('status_pembayaran') is-invalid @enderror" id="status_pembayaran"
+                                        name="status_pembayaran" value="{{ old('status_pembayaran') }}">
+                                        <option value="Status Pembayaran">- Pilih Status Pembayaran -</option>
+                                        <option value="Sudah Bayar">Sudah Bayar</option>
+                                        <option value="Belum Bayar">Belum Bayar</option>
                                     </select>
                                     </div>
                                 </div>

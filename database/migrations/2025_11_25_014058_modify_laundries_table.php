@@ -22,7 +22,8 @@ return new class extends Migration
             $table->string('resi', 25);
             $table->float('berat');
             $table->float('total_harga');
-            $table->string('status', 50);
+            $table->string('status_laundry', 50);
+            $table->string('status_pembayaran', 50);
             $table->date('tgl_masuk');
             $table->date('tgl_selesai')->nullable();
 

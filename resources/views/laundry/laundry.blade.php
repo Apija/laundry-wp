@@ -133,7 +133,8 @@
                                     <th>Resi</th>
                                     <th>Berat</th>
                                     <th>Total Harga</th>
-                                    <th>Status</th>
+                                    <th>Status Laundry</th>
+                                    <th>Status Pembayaran</th>
                                     <th>Tanggal Masuk</th>
                                     <th>Tanggal Selesai</th>
                                     <th>Action</th>
@@ -153,7 +154,7 @@
                                                 <button type="button"
                                                     class="btn btn-sm btn-outline-primary dropdown-toggle"
                                                     data-bs-toggle="dropdown">
-                                                    {{ $ldr->status }}
+                                                    {{ $ldr->status_laundry }}
                                                 </button>
 
                                                 <div class="dropdown-menu">
@@ -192,6 +193,37 @@
                                                         <input type="hidden" name="status" value="Dibatalkan">
                                                         <button type="submit" class="dropdown-item">
                                                             <i class="bx bx-x-circle me-1 text-primary"></i> Dibatalkan
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button"
+                                                    class="btn btn-sm btn-outline-primary dropdown-toggle"
+                                                    data-bs-toggle="dropdown">
+                                                    {{ $ldr->status_pembayaran }}
+                                                </button>
+
+                                                <div class="dropdown-menu">
+
+                                                    <form action="{{ route('laundry.updateStatus', $ldr->id_laundry) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <input type="hidden" name="status" value="Sudah Bayar">
+                                                        <button type="submit" class="dropdown-item">
+                                                            <i class="bx bx-loader-circle me-1 text-warning"></i> Sudah Bayar
+                                                        </button>
+                                                    </form>
+                                                    <form action="{{ route('laundry.updateStatus', $ldr->id_laundry) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <input type="hidden" name="status" value="Belum Bayar">
+                                                        <button type="submit" class="dropdown-item">
+                                                            <i class="bx bx-x-circle me-1 text-primary"></i> Belum Bayar
                                                         </button>
                                                     </form>
                                                 </div>

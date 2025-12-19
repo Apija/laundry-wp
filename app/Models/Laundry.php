@@ -15,7 +15,8 @@ class Laundry extends Model
         'resi',
         'berat',
         'total_harga',
-        'status',
+        'status_laundry',
+        'status_pembayaran',
         'tgl_masuk',
         'tgl_selesai',
     ];
