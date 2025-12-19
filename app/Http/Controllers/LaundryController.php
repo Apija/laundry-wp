@@ -60,7 +60,8 @@ class LaundryController extends Controller
             'id_pelanggan' => 'required|exists:pelanggans,id_pelanggan',
             'id_layanan' => 'required|exists:layanans,id_layanan',
             'berat' => 'required|numeric',
-            'status' => 'required|max:45',
+            'status_laundry' => 'required|max:45',
+            'status_pembayaran' => 'required|max:45',
             'tgl_masuk' => 'required|date',
         ]);
 
@@ -96,7 +97,8 @@ class LaundryController extends Controller
             'resi' => $resi,
             'berat' => $request->berat,
             'total_harga' => $total_harga,
-            'status' => $request->status,
+            'status_laundry' => $request->status,
+            'status_pembayaran' => $request->status,
             'tgl_masuk' => $request->tgl_masuk,
             'tgl_selesai' => $tgl_selesai,
         ]);
@@ -133,6 +135,7 @@ class LaundryController extends Controller
         $judul = "Laporan-Laundry";
         $periode = "";
 
+        // Filter Bulanan / Mingguan
         if ($request->jenis == 'bulanan' && $request->has('filter_bulan')) {
             $parts = explode('-', $request->filter_bulan);
             $query->whereYear('tgl_masuk', $parts[0])
@@ -140,7 +143,6 @@ class LaundryController extends Controller
             $judul .= "-Bulanan-" . $request->filter_bulan;
             $periode = "Bulan: " . date('F Y', strtotime($request->filter_bulan));
         } elseif ($request->jenis == 'mingguan' && $request->has('filter_minggu')) {
-
             $dto = new \DateTime();
             $dto->setISODate((int)substr($request->filter_minggu, 0, 4), (int)substr($request->filter_minggu, 6));
             $start = $dto->format('Y-m-d');
@@ -153,7 +155,15 @@ class LaundryController extends Controller
         }
 
         $data = $query->get();
-        $totalPendapatan = $data->where('status', '!=', 'Dibatalkan')->sum('total_harga');
+
+        // --- PERUBAHAN DI SINI ---
+        // Menghitung total harga dimana:
+        // 1. Status laundry TIDAK SAMA DENGAN 'Dibatalkan'
+        // 2. DAN Status pembayaran TIDAK SAMA DENGAN 'Belum Bayar'
+        $totalPendapatan = $data->where('status', '!=', 'Dibatalkan')
+            ->where('status_pembayaran', '!=', 'Belum Bayar')
+            ->sum('total_harga');
+        // -------------------------
 
         if ($request->format == 'pdf') {
             $pdf = Pdf::loadView('laundry.export_excel', compact('data', 'periode', 'totalPendapatan'));

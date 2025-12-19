@@ -8,7 +8,14 @@
                 <!-- Basic Bootstrap Table -->
                 <div class="card">
                     <h5 class="card-header">Layanan</h5>
-                    <a href="{{ route('layanan.create') }}" class="btn" style="margin-left: 700px">Add Data</a>
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <div class="d-flex align-items-center gap-2" style="width: auto;">
+                            <a href="{{ route('layanan.create') }}" class="btn btn-primary text-nowrap">
+                                Add Data
+                            </a>
+
+                        </div>
+                    </div>
                     <div class="table-responsive text-nowrap">
                         <table class="table">
                             <thead>
@@ -31,7 +38,7 @@
                                         <td>{{ $l->kode }}</td>
                                         <td>{{ $l->nama_layanan }}</td>
                                         <td>{{ $l->harga_perkilo }} Kg</td>
-                                        <td>{{ $l->estimasi}} Hari</td>
+                                        <td>{{ $l->estimasi }} Hari</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -39,9 +46,10 @@
                                                     <i class="icon-base bx bx-dots-vertical-rounded"></i>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="{{ route('layanan.edit', $l->id_layanan) }}"><i
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('layanan.edit', $l->id_layanan) }}"><i
                                                             class="icon-base bx bx-edit-alt me-1"></i> Edit</a>
-                                                     <form id="delete-form-{{ $l->id_layanan }}"
+                                                    <form id="delete-form-{{ $l->id_layanan }}"
                                                         action="{{ route('layanan.delete', $l->id_layanan) }}"
                                                         method="POST" style="display: none;">
                                                         @csrf

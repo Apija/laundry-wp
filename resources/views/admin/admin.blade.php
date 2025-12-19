@@ -8,7 +8,14 @@
                 <!-- Basic Bootstrap Table -->
                 <div class="card">
                     <h5 class="card-header">Admin</h5>
-                    <a href="{{ route('admin.create') }}" class="btn" style="margin-left: 700px">Add Data</a>
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <div class="d-flex align-items-center gap-2" style="width: auto;">
+                            <a href="{{ route('admin.create') }}" class="btn btn-primary text-nowrap">
+                                Add Data
+                            </a>
+
+                        </div>
+                    </div>
                     <div class="table-responsive text-nowrap">
                         <table class="table">
                             <thead>
