@@ -79,7 +79,7 @@
                                     <td>{{ $p->nama }}</td>
                                     <td>{{ $p->no_hp }}</td>
                                     <td>{{ $p->alamat }}</td>
-                                    <td>{{ $p->create_at }}</td>
+                                    <td>{{ $p->created_at }}</td>
                                     <td>
                                         <div class="dropdown">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"

@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Pelanggan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class PelangganController extends Controller
@@ -17,7 +19,7 @@ class PelangganController extends Controller
     {
         return view('pelanggan.create');
     }
-    
+
     //menyimpan data
     public function store(Request $request)
     {
@@ -50,9 +52,9 @@ class PelangganController extends Controller
         return view('pelanggan.edit', compact('id'));
     }
 
-    
+
     //Update the specified resource in storage.
-    
+
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -87,5 +89,25 @@ class PelangganController extends Controller
 
         return redirect('pelanggan')->with('success', 'Data berhasil dihapus');
     }
-    
+    public function exportLaporan(Request $request)
+    {
+        // 1. Ambil SEMUA data member dari database
+        $data = Pelanggan::latest()->get();
+
+        $judul = "Laporan-Member";
+
+        // 2. Cek Format (PDF atau Excel)
+        if ($request->format == 'pdf') {
+            $pdf = Pdf::loadView('pelanggan.export_excel', compact('data'));
+            $pdf->setPaper('a4', 'portrait');
+            return $pdf->download($judul . '.pdf');
+        } else {
+            header("Content-Type: application/vnd.ms-excel");
+            header("Content-Disposition: attachment; filename=$judul.xls");
+            header("Pragma: no-cache");
+            header("Expires: 0");
+
+            return view('pelanggan.export_excel', compact('data'));
+        }
+    }
 }

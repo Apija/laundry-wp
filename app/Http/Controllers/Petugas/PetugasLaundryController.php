@@ -124,11 +124,11 @@ class PetugasLaundryController extends Controller
 
     public function exportLaporan(Request $request)
     {
-        // 1. Logika Filter (Sama seperti sebelumnya)
         $query = Laundry::with(['pelanggan', 'layanan']);
         $judul = "Laporan-Laundry";
         $periode = "";
 
+        // Filter Bulanan / Mingguan
         if ($request->jenis == 'bulanan' && $request->has('filter_bulan')) {
             $parts = explode('-', $request->filter_bulan);
             $query->whereYear('tgl_masuk', $parts[0])
@@ -148,23 +148,27 @@ class PetugasLaundryController extends Controller
         }
 
         $data = $query->get();
-        $totalPendapatan = $data->where('status', '!=', 'Dibatalkan')->sum('total_harga');
 
-        // 2. Cek Format Download (PDF atau Excel)
+        // --- PERUBAHAN DI SINI ---
+        // Menghitung total harga dimana:
+        // 1. Status laundry TIDAK SAMA DENGAN 'Dibatalkan'
+        // 2. DAN Status pembayaran TIDAK SAMA DENGAN 'Belum Bayar'
+        $totalPendapatan = $data->where('status', '!=', 'Dibatalkan')
+            ->where('status_pembayaran', '!=', 'Belum Bayar')
+            ->sum('total_harga');
+        // -------------------------
+
         if ($request->format == 'pdf') {
-            // Load View khusus PDF
-            $pdf = Pdf::loadView('petugas.laundry.export_excel', compact('data', 'periode', 'totalPendapatan'));
-            // Atur kertas jadi Landscape agar tabel muat
+            $pdf = Pdf::loadView('laundry.export_excel', compact('data', 'periode', 'totalPendapatan'));
             $pdf->setPaper('a4', 'landscape');
             return $pdf->download($judul . '.pdf');
         } else {
-            // Format Excel (Menggunakan View HTML agar Rapi ada garisnya)
             header("Content-Type: application/vnd.ms-excel");
             header("Content-Disposition: attachment; filename=$judul.xls");
             header("Pragma: no-cache");
             header("Expires: 0");
 
-            return view('petugas.laundry.export_excel', compact('data', 'periode', 'totalPendapatan'));
+            return view('laundry.export_excel', compact('data', 'periode', 'totalPendapatan'));
         }
     }
 }

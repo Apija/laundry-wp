@@ -20,7 +20,7 @@ Route :: get ('/login', [AuthController::class,'login'])->name('login');
 Route :: post ('/login', [AuthController::class,'autheticate'])->name('login.proses');
 Route :: get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route :: get('/dashboard', [AuthController::class,'dashboard'])->name('dashboard');
-Route::get('/petugas/dashboard', [AuthController::class, 'petugasdashboard'])->name('petugas.dashboard');
+Route ::get('/petugas/dashboard', [AuthController::class, 'petugasdashboard'])->name('petugas.dashboard');
 
 //laundry crud
 Route :: get('/laundry', [LaundryController::class,'laundry'])->name('laundry');
@@ -48,7 +48,8 @@ Route :: get ('/pelanggan/create', [PelangganController::class,'create'])->name(
 Route :: post ('/pelanggan/store', [PelangganController::class,'store'])->name('pelanggan.store');
 Route :: get ('/pelanggan/edit/{id}', [PelangganController::class,'edit'])->name('pelanggan.edit');
 Route :: put ('/pelanggan/update/{id}', [PelangganController::class,'update'])->name('pelanggan.update');
-Route :: delete ('/pelanggan/delete/{id}', [PelangganController::class,'delete'])->name('pelanggan.delete'); 
+Route :: delete ('/pelanggan/delete/{id}', [PelangganController::class,'delete'])->name('pelanggan.delete');
+Route :: get('/pelanggan/export', [PelangganController::class, 'exportLaporan'])->name('pelanggan.export');
 
 //admin crud
 Route :: get('/user', [AdminController::class, 'user'])->name('user');
