@@ -15,7 +15,7 @@ class PetugasLaundryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function dasboard()
     {
         // 1. Ambil data pendapatan per bulan untuk tahun ini
         // ==========================

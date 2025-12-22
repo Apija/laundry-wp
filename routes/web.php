@@ -9,15 +9,15 @@ use App\Http\Controllers\Petugas\PetugasPelangganController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/member/history', [laundryController::class, 'history'])->name('member.history');
+Route::get('/member/history', [LaundryController::class, 'history'])->name('member.history');
 
 //login dan logout
 Route :: get ('/', [LaundryController::class,'index'])->name('member.member');
 Route :: get ('/login', [AuthController::class,'login'])->name('login');
 Route :: post ('/login', [AuthController::class,'autheticate'])->name('login.proses');
 Route :: get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route :: get('/dashboard', [LaundryController::class,'index'])->name('dashboard');
-Route ::get('/petugas/dashboard', [PetugasLaundryController::class, 'index'])->name('petugas.dashboard');
+Route :: get('/dashboard', [LaundryController::class,'dashboard'])->name('dashboard');
+Route ::get('/petugas/dashboard', [PetugasLaundryController::class, 'dashboard'])->name('petugas.dashboard');
 
 //laundry crud
 Route :: get('/laundry', [LaundryController::class,'laundry'])->name('laundry');

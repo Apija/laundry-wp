@@ -138,7 +138,7 @@
 
                     <div class="text-sm-end w-100 w-sm-auto">
                         @php
-                            $badgeColor = match ($item->status) {
+                            $badgeColor = match ($item->status_laundry) {
                                 'Selesai' => 'bg-success',
                                 'Sedang dalam proses' => 'bg-primary',
                                 'Dibatalkan' => 'bg-danger',
@@ -148,7 +148,7 @@
                         @endphp
 
                         <span class="badge {{ $badgeColor }} rounded-pill mb-2 px-3">
-                            {{ $item->status }}
+                            {{ $item->status_laundry }}
                         </span>
 
                         <div class="text-muted small mb-1">

@@ -9,13 +9,12 @@ use App\Models\Pelanggan;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 
-
 class LaundryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function dashboard()
     {
         // 1. Ambil data pendapatan per bulan untuk tahun ini
         // ==========================
@@ -75,6 +74,10 @@ class LaundryController extends Controller
             'labelsBulanan','dataBulanan',
             'totalBulanIni', 'totalTahunIni'
         ));
+    }
+    public function index()
+    {
+        return view('member.member');
     }
 
     public function laundry(Request $request)
