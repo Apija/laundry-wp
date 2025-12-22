@@ -6,10 +6,7 @@ use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\Petugas\PetugasLaundryController;
 use App\Http\Controllers\Petugas\PetugasLayananController;
 use App\Http\Controllers\Petugas\PetugasPelangganController;
-use App\Http\Controllers\MemberController;
-
 use App\Http\Controllers\AdminController;
-
 use Illuminate\Support\Facades\Route;
 
 Route::get('/member/history', [laundryController::class, 'history'])->name('member.history');
@@ -19,8 +16,8 @@ Route :: get ('/', [LaundryController::class,'index'])->name('member.member');
 Route :: get ('/login', [AuthController::class,'login'])->name('login');
 Route :: post ('/login', [AuthController::class,'autheticate'])->name('login.proses');
 Route :: get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route :: get('/dashboard', [AuthController::class,'dashboard'])->name('dashboard');
-Route ::get('/petugas/dashboard', [AuthController::class, 'petugasdashboard'])->name('petugas.dashboard');
+Route :: get('/dashboard', [LaundryController::class,'index'])->name('dashboard');
+Route ::get('/petugas/dashboard', [PetugasLaundryController::class, 'index'])->name('petugas.dashboard');
 
 //laundry crud
 Route :: get('/laundry', [LaundryController::class,'laundry'])->name('laundry');

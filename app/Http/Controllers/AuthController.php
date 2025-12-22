@@ -13,14 +13,7 @@ class AuthController extends Controller
     {
         return view('login');
     }
-    public function dashboard()
-    {
-        return view('dashboard');
-    }
-    public function petugasdashboard()
-    {
-        return view('petugas.dashboard');
-    }
+    
     //verifikasi use and password
     public function autheticate(Request $request)
     {

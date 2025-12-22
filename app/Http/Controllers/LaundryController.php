@@ -7,6 +7,8 @@ use App\Models\Laundry;
 use App\Models\Layanan;
 use App\Models\Pelanggan;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
+
 
 class LaundryController extends Controller
 {
@@ -15,7 +17,64 @@ class LaundryController extends Controller
      */
     public function index()
     {
-        return view('member.member');
+        // 1. Ambil data pendapatan per bulan untuk tahun ini
+        // ==========================
+        // 1. DATA HARIAN (BULAN INI)
+        // ==========================
+        $hariIni = date('d');
+        $bulanIni = date('m');
+        $tahunIni = date('Y');
+        $jumlahHari = date('t'); // Mengetahui jumlah hari di bulan ini (28/30/31)
+
+        $pendapatanHarian = Laundry::select(
+            DB::raw('DAY(tgl_masuk) as tanggal'),
+            DB::raw('SUM(total_harga) as total')
+        )
+            ->whereMonth('tgl_masuk', $bulanIni)
+            ->whereYear('tgl_masuk', $tahunIni)
+            ->where('status_laundry', '!=', 'Dibatalkan')
+            ->where('status_pembayaran', '!=', 'Belum Bayar')
+            ->groupBy('tanggal')
+            ->get();
+
+        $labelsHarian = [];
+        $dataHarian = [];
+
+        for ($i = 1; $i <= $jumlahHari; $i++) {
+            $labelsHarian[] = 'Tgl ' . $i;
+            $cek = $pendapatanHarian->firstWhere('tanggal', $i);
+            $dataHarian[] = $cek ? $cek->total : 0;
+        }
+
+        // ==========================
+        // 2. DATA BULANAN (TAHUN INI)
+        // ==========================
+        $pendapatanBulanan = Laundry::select(
+            DB::raw('MONTH(tgl_masuk) as bulan'),
+            DB::raw('SUM(total_harga) as total')
+        )
+            ->whereYear('tgl_masuk', $tahunIni)
+            ->where('status_laundry', '!=', 'Dibatalkan')
+            ->where('status_pembayaran', '!=', 'Belum Bayar')
+            ->groupBy('bulan')
+            ->orderBy('bulan')
+            ->get();
+
+        $labelsBulanan = [];
+        $dataBulanan = [];
+
+        for ($i = 1; $i <= 12; $i++) {
+            $labelsBulanan[] = date('F', mktime(0, 0, 0, $i, 1));
+            $cek = $pendapatanBulanan->firstWhere('bulan', $i);
+            $dataBulanan[] = $cek ? $cek->total : 0;
+        }
+        $totalBulanIni = array_sum($dataHarian); // Jumlahkan semua angka di grafik harian
+        $totalTahunIni = array_sum($dataBulanan); // Jumlahkan semua angka di grafik tahunan
+        return view('dashboard', compact(
+            'labelsHarian','dataHarian',
+            'labelsBulanan','dataBulanan',
+            'totalBulanIni', 'totalTahunIni'
+        ));
     }
 
     public function laundry(Request $request)
