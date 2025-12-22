@@ -1,4 +1,4 @@
-@extends('layout.main3')
+@extends('layout.main')
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="content-wrapper">
@@ -10,7 +10,7 @@
 
                         <div class="d-flex align-items-center gap-2">
 
-                            <form action="{{ route('petugas.laundry') }}" method="GET" class="d-flex gap-2">
+                            <form action="{{ route('laundry') }}" method="GET" class="d-flex gap-2">
                                 <input type="month" name="filter_bulan" class="form-control"
                                     value="{{ request('filter_bulan') }}" style="width: auto;">
 
@@ -19,7 +19,7 @@
                                 </button>
 
                                 @if (request('filter_bulan'))
-                                    <a href="{{ route('petugas.laundry') }}" class="btn btn-outline-secondary" title="Reset Filter">
+                                    <a href="{{ route('laundry') }}" class="btn btn-outline-secondary" title="Reset Filter">
                                         <i class="icon-base bx bx-x"></i>
                                     </a>
                                 @endif
@@ -52,7 +52,7 @@
 
                                             <div class="tab-content">
                                                 <div class="tab-pane fade show active" id="tab-bulan">
-                                                    <form action="{{ route('petugas.laundry.export') }}" method="GET">
+                                                    <form action="{{ route('laundry.export') }}" method="GET">
                                                         <input type="hidden" name="jenis" value="bulanan">
 
                                                         <div class="mb-3">
@@ -133,7 +133,8 @@
                                     <th>Resi</th>
                                     <th>Berat</th>
                                     <th>Total Harga</th>
-                                    <th>Status</th>
+                                    <th>Status Laundry</th>
+                                    <th>Status Pembayaran</th>
                                     <th>Tanggal Masuk</th>
                                     <th>Tanggal Selesai</th>
                                     <th>Action</th>
@@ -153,34 +154,34 @@
                                                 <button type="button"
                                                     class="btn btn-sm btn-outline-primary dropdown-toggle"
                                                     data-bs-toggle="dropdown">
-                                                    {{ $ldr->status }}
+                                                    {{ $ldr->status_laundry }}
                                                 </button>
 
                                                 <div class="dropdown-menu">
 
-                                                    <form action="{{ route('petugas.laundry.updateStatus', $ldr->id_laundry) }}"
+                                                    <form action="{{ route('laundry.updateStatus', $ldr->id_laundry) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('PUT')
-                                                        <input type="hidden" name="status" value="Sedang dalam proses">
+                                                        <input type="hidden" name="status_laundry" value="Sedang dalam proses">
                                                         <button type="submit" class="dropdown-item">
                                                             <i class="bx bx-loader-circle me-1 text-warning"></i> Sedang dalam proses
                                                         </button>
                                                     </form>
-                                                    <form action="{{ route('petugas.laundry.updateStatus', $ldr->id_laundry) }}"
+                                                    <form action="{{ route('laundry.updateStatus', $ldr->id_laundry) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('PUT')
-                                                        <input type="hidden" name="status" value="Selesai">
+                                                        <input type="hidden" name="status_laundry" value="Selesai">
                                                         <button type="submit" class="dropdown-item">
                                                             <i class="bx bx-check-circle me-1 text-success"></i> Selesai
                                                         </button>
                                                     </form>
-                                                    <form action="{{ route('petugas.laundry.updateStatus', $ldr->id_laundry) }}"
+                                                    <form action="{{ route('laundry.updateStatus', $ldr->id_laundry) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('PUT')
-                                                        <input type="hidden" name="status" value="Diambil">
+                                                        <input type="hidden" name="status_laundry" value="Diambil">
                                                         <button type="submit" class="dropdown-item">
                                                             <i class="bx bx-package me-1 text-primary"></i> Diambil
                                                         </button>
@@ -189,12 +190,42 @@
                                                         method="POST">
                                                         @csrf
                                                         @method('PUT')
-                                                        <input type="hidden" name="status" value="Dibatalkan">
+                                                        <input type="hidden" name="status_laundry" value="Dibatalkan">
                                                         <button type="submit" class="dropdown-item">
                                                             <i class="bx bx-x-circle me-1 text-primary"></i> Dibatalkan
                                                         </button>
                                                     </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button"
+                                                    class="btn btn-sm btn-outline-primary dropdown-toggle"
+                                                    data-bs-toggle="dropdown">
+                                                    {{ $ldr->status_pembayaran }}
+                                                </button>
 
+                                                <div class="dropdown-menu">
+
+                                                    <form action="{{ route('laundry.updateStatus', $ldr->id_laundry) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <input type="hidden" name="status_pembayaran" value="Sudah Bayar">
+                                                        <button type="submit" class="dropdown-item">
+                                                            <i class="bx bx-loader-circle me-1 text-warning"></i> Sudah Bayar
+                                                        </button>
+                                                    </form>
+                                                    <form action="{{ route('laundry.updateStatus', $ldr->id_laundry) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <input type="hidden" name="status_pembayaran" value="Belum Bayar">
+                                                        <button type="submit" class="dropdown-item">
+                                                            <i class="bx bx-x-circle me-1 text-primary"></i> Belum Bayar
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </td>
@@ -208,7 +239,7 @@
                                                 </button>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item"
-                                                        href="{{ route('petugas.laundry.cetak', $ldr->id_laundry) }}"
+                                                        href="{{ route('laundry.cetak', $ldr->id_laundry) }}"
                                                         target="_blank">
                                                         <i class="icon-base bx bx-receipt me-1"></i> Cetak
                                                     </a>

@@ -97,8 +97,8 @@ class LaundryController extends Controller
             'resi' => $resi,
             'berat' => $request->berat,
             'total_harga' => $total_harga,
-            'status_laundry' => $request->status,
-            'status_pembayaran' => $request->status,
+            'status_laundry' => $request->status_laundry,
+            'status_pembayaran' => $request->status_pembayaran,
             'tgl_masuk' => $request->tgl_masuk,
             'tgl_selesai' => $tgl_selesai,
         ]);
@@ -120,11 +120,20 @@ class LaundryController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $laundry = Laundry::findOrFail($id);
-        $laundry->status = $request->status;
+
+        if ($request->has('status_laundry')) {
+            $laundry->status_laundry = $request->status_laundry;
+        }
+
+        if ($request->has('status_pembayaran')) {
+            $laundry->status_pembayaran = $request->status_pembayaran;
+        }
+
         $laundry->save();
 
         return redirect()->back()->with('success', 'Status berhasil diubah!');
     }
+
 
     /**
      * Export Laporan

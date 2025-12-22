@@ -163,7 +163,7 @@
                                                         method="POST">
                                                         @csrf
                                                         @method('PUT')
-                                                        <input type="hidden" name="status" value="Sedang dalam proses">
+                                                        <input type="hidden" name="status_laundry" value="Sedang dalam proses">
                                                         <button type="submit" class="dropdown-item">
                                                             <i class="bx bx-loader-circle me-1 text-warning"></i> Sedang dalam proses
                                                         </button>
@@ -172,7 +172,7 @@
                                                         method="POST">
                                                         @csrf
                                                         @method('PUT')
-                                                        <input type="hidden" name="status" value="Selesai">
+                                                        <input type="hidden" name="status_laundry" value="Selesai">
                                                         <button type="submit" class="dropdown-item">
                                                             <i class="bx bx-check-circle me-1 text-success"></i> Selesai
                                                         </button>
@@ -181,7 +181,7 @@
                                                         method="POST">
                                                         @csrf
                                                         @method('PUT')
-                                                        <input type="hidden" name="status" value="Diambil">
+                                                        <input type="hidden" name="status_laundry" value="Diambil">
                                                         <button type="submit" class="dropdown-item">
                                                             <i class="bx bx-package me-1 text-primary"></i> Diambil
                                                         </button>
@@ -190,7 +190,7 @@
                                                         method="POST">
                                                         @csrf
                                                         @method('PUT')
-                                                        <input type="hidden" name="status" value="Dibatalkan">
+                                                        <input type="hidden" name="status_laundry" value="Dibatalkan">
                                                         <button type="submit" class="dropdown-item">
                                                             <i class="bx bx-x-circle me-1 text-primary"></i> Dibatalkan
                                                         </button>
@@ -212,7 +212,7 @@
                                                         method="POST">
                                                         @csrf
                                                         @method('PUT')
-                                                        <input type="hidden" name="status" value="Sudah Bayar">
+                                                        <input type="hidden" name="status_pembayaran" value="Sudah Bayar">
                                                         <button type="submit" class="dropdown-item">
                                                             <i class="bx bx-loader-circle me-1 text-warning"></i> Sudah Bayar
                                                         </button>
@@ -221,7 +221,7 @@
                                                         method="POST">
                                                         @csrf
                                                         @method('PUT')
-                                                        <input type="hidden" name="status" value="Belum Bayar">
+                                                        <input type="hidden" name="status_pembayaran" value="Belum Bayar">
                                                         <button type="submit" class="dropdown-item">
                                                             <i class="bx bx-x-circle me-1 text-primary"></i> Belum Bayar
                                                         </button>

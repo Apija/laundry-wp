@@ -87,4 +87,5 @@ Route::post('/petugas/pelanggan/store', [PetugasPelangganController::class,'stor
 Route::get('/petugas/pelanggan/edit/{id}', [PetugasPelangganController::class,'edit'])->name('petugas.pelanggan.edit');
 Route::put('/petugas/pelanggan/update/{id}', [PetugasPelangganController::class,'update'])->name('petugas.pelanggan.update');
 Route::delete('/petugas/pelanggan/delete/{id}', [PetugasPelangganController::class,'delete'])->name('petugas.pelanggan.delete');
+Route :: get('/petugas/pelanggan/export', [PetugasPelangganController::class, 'exportLaporan'])->name('petugas.pelanggan.export');
 

@@ -44,7 +44,8 @@
                 <th>Pelanggan</th>
                 <th>Layanan</th>
                 <th>Resi</th>
-                <th>Status</th>
+                <th>Status Laundry</th>
+                <th>Status Pembayaran</th>
                 <th>Berat</th>
                 <th>Harga</th>
             </tr>
@@ -65,7 +66,7 @@
             @endforeach
             
             <tr class="total-row">
-                <td colspan="7" class="text-right">TOTAL PENDAPATAN</td>
+                <td colspan="8" class="text-right">TOTAL PENDAPATAN</td>
                 <td class="text-right">Rp{{ number_format($totalPendapatan, 0, ',', '.') }}</td>
             </tr>
         </tbody>

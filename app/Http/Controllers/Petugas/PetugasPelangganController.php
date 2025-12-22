@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Petugas;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pelanggan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class PetugasPelangganController extends Controller
@@ -88,5 +89,26 @@ class PetugasPelangganController extends Controller
         $id->delete();
 
         return redirect()->route('petugas.pelanggan')->with('success', 'Data berhasil dihapus');
+    }
+    public function exportLaporan(Request $request)
+    {
+        // 1. Ambil SEMUA data member dari database
+        $data = Pelanggan::latest()->get();
+
+        $judul = "Laporan-Member";
+
+        // 2. Cek Format (PDF atau Excel)
+        if ($request->format == 'pdf') {
+            $pdf = Pdf::loadView('pelanggan.export_excel', compact('data'));
+            $pdf->setPaper('a4', 'portrait');
+            return $pdf->download($judul . '.pdf');
+        } else {
+            header("Content-Type: application/vnd.ms-excel");
+            header("Content-Disposition: attachment; filename=$judul.xls");
+            header("Pragma: no-cache");
+            header("Expires: 0");
+
+            return view('pelanggan.export_excel', compact('data'));
+        }
     }
 }
