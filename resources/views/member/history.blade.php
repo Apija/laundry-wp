@@ -16,6 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
+    <link href='https://cdn.boxicons.com/3.0.6/fonts/basic/boxicons.min.css' rel='stylesheet'>
 
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}" />
@@ -95,15 +96,19 @@
 
         /* Ikon Kotak */
         .service-icon {
-            width: 50px;
-            height: 50px;
+            width: 70px;
+            /* Sebelumnya 50px, diperbesar jadi 70px */
+            height: 70px;
+            /* Sebelumnya 50px, diperbesar jadi 70px */
             background-color: #e7e7ff;
             color: #696cff;
-            border-radius: 10px;
+            border-radius: 12px;
+            /* Radius sedikit disesuaikan */
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 36px;
+            /* Ukuran ikon di dalamnya diperbesar dari 24px jadi 36px */
         }
     </style>
 </head>
@@ -124,7 +129,7 @@
                 <div class="history-card d-flex align-items-center flex-wrap flex-sm-nowrap">
                     <div class="flex-shrink-0 me-3 mb-3 mb-sm-0">
                         <div class="service-icon">
-                            <i class='bx bxs-washer'></i>
+                            <i class='bx  bx-dishwasher'></i>
                         </div>
                     </div>
 
@@ -157,8 +162,8 @@
                         <div class="fw-bold text-primary">
                             Total: Rp{{ number_format($item->total_harga, 0, ',', '.') }}
                         </div>
-                        <a href="{{ route('laundry.cetak', $item->id_laundry) }}"
-                            target="_blank" class="btn btn-primary text-nowrap">
+                        <a href="{{ route('laundry.cetak', $item->id_laundry) }}" target="_blank"
+                            class="btn btn-primary text-nowrap">
                             Cetak Struk
                         </a>
                     </div>

@@ -165,7 +165,7 @@ class PetugasLaundryController extends Controller
         return redirect()->route('petugas.laundry')->with('success', 'Data berhasil dihapus');
     }
 
-    public function cetakStruk($id_laundry)
+    public function cetakStruk($id_laundry)     
     {
         // Ambil data laundry berdasarkan ID, lengkap dengan relasi pelanggan dan layanan
         $laundry = Laundry::with(['pelanggan', 'layanan'])->findOrFail($id_laundry);

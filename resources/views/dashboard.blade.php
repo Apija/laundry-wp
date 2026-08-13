@@ -7,7 +7,7 @@
         <div class="card mb-4">
             <div class="card-body d-flex justify-content-between align-items-center">
                 <div>
-                    <h4 class="text-primary mb-0">Welcome Super Admin! 🎉</h4>
+                    <h4 class="text-primary mb-0">Welcome  Admin! 🎉</h4>
                     <p class="mb-0">Pantau performa bisnis laundry kamu hari ini.</p>
                 </div>
             </div>
